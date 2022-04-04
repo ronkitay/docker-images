@@ -1,0 +1,4 @@
+# Setup common kubectl alaises
+alias k='kubectl'
+alias kgetns='kubectl get namespace'
+alias ksetns='kubectl config set-context --current --namespace '

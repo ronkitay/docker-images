@@ -1,17 +1,13 @@
-FROM alpine:3.15.2
-
-ENV PROFILE_FILE=/root/.profile
-
-# Install cUrl
-RUN apk --no-cache add curl
+FROM docker-basic-env:1.0.1
 
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 RUN su -l root; su -; install -o root -g root -m 0755 /kubectl /usr/local/bin/kubectl
 RUN rm /kubectl
 
-# Install AWS CLI
-RUN apk add --no-cache aws-cli
+ENV K8S_ZSHRC_FILE=/root/.zshrc.k8s
 
-ADD .profile ${PROFILE_FILE}
-RUN chmod +x ${PROFILE_FILE}
+ADD .zshrc.k8s ${K8S_ZSHRC_FILE}
+RUN chmod +x ${K8S_ZSHRC_FILE}
+
+RUN echo "source ${K8S_ZSHRC_FILE}" >> ${ZSHRC_FILE}
