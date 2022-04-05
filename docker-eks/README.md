@@ -1,4 +1,4 @@
-# docker-aws-k8s
+# docker-eks
 
 A Docker image for maintaining multiple EKS (K8S on AWS) contexts.
 
@@ -13,9 +13,10 @@ A Docker image for maintaining multiple EKS (K8S on AWS) contexts.
 ```bash
 docker run \
     -v ${HOME}/.aws/:/root/.aws \
-    -v ${HOME}/.my-docker-envs/<ENV_NAME>/.kube:/root/.kube \
+    -v ${HOME}/.my-docker-envs/<WORKSPACE_NAME>/.kube:/root/.kube \
+    --env WORKSPACE_NAME=<Workspace Name> \
     --env AWS_PROFILE=<AWS_PROFILE> \
     --env AWS_REGION=<AWS_REGION> \
     --env EKS_CLUSTER=<AWS_CLUSTER> \
-    -t -i --rm docker-aws-k8s:v1 sh -l
+    -t -i --rm docker-eks:1.0.3
 ```
