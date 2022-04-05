@@ -1,4 +1,4 @@
-# docker-k8s-cli
+# k8s-cli
 
 A Docker image with the K8S and Helm CLIs on Alpine - Can be used as a base image for connecting to custom cloud K8S environments (EKS/GKE/AKS) or for connecting to a ad-hoc K8S clusters
 

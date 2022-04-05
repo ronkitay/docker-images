@@ -1,4 +1,4 @@
-# docker-eks
+# eks
 
 A Docker image for maintaining multiple EKS (K8S on AWS) contexts.
 
