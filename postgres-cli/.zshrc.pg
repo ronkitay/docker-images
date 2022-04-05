@@ -1,0 +1,11 @@
+echo "Connecting to [${WORKSPACE_NAME}]"
+
+export PGPASSWORD=${PG_PASSWORD}
+
+if [ -z "${FILE_NAME}" ]; then
+    psql -h ${PG_HOSTNAME} -p ${PG_PORT} --username=${PG_USERNAME} -d ${PG_DB}
+else
+    psql -h ${PG_HOSTNAME} -p ${PG_PORT} --username=${PG_USERNAME} -d ${PG_DB} -f ${FILE_NAME}
+fi
+
+exit
