@@ -18,5 +18,5 @@ docker run \
     --env AWS_PROFILE=<AWS_PROFILE> \
     --env AWS_REGION=<AWS_REGION> \
     --env EKS_CLUSTER=<AWS_CLUSTER> \
-    -t -i --rm docker-eks:1.0.3
+    -t -i --rm docker-eks:2.0.0
 ```

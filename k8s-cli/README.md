@@ -14,5 +14,5 @@ A Docker image with the K8S and Helm CLIs on Alpine - Can be used as a base imag
 docker run \
     -v ${HOME}/.my-docker-envs/<WORKSPACE_NAME>/.kube:/root/.kube \
     --env WORKSPACE_NAME=<Workspace Name> \
-    -t -i --rm docker-k8s-cli:1.0.2
+    -t -i --rm docker-k8s-cli:2.0.0
 ```
