@@ -1,0 +1,33 @@
+if [[ -z "${MONGO_HOSTNAME}" ]]; then
+    echo "'MONGO_HOSTNAME' not provided - exiting."
+    exit 1
+fi
+
+if [[ -z "${MONGO_DB}" ]]; then
+    echo "'MONGO_DB' not provided - exiting."
+    exit 1
+fi
+
+if [[ -z "${MONGO_USERNAME}" ]]; then
+    echo "'MONGO_USERNAME' not provided - exiting."
+    exit 1
+fi
+
+if [[ -z "${MONGO_PASSWORD}" ]]; then
+    echo "'MONGO_PASSWORD' not provided - exiting."
+    exit 1
+fi
+
+echo "Tips:"
+echo "====="
+echo "show collections # See all collections"
+echo "db.<collection>.count() # Count documents in collection"
+echo "db.<collection>.find() # See all documents in collection"
+echo "db.<collection>.find({"key": "value"}) # See all documents in collection matching 'key=value'"
+echo ""
+
+echo "Connecting to [${MONGO_DB}] on [${MONGO_HOSTNAME}]"
+
+mongo -u ${MONGO_USERNAME} -p ${MONGO_PASSWORD} "mongodb+srv://${MONGO_HOSTNAME}/${MONGO_DB}"
+
+exit
