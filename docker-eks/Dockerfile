@@ -1,4 +1,4 @@
-FROM docker-k8s-cli:1.0.1 AS Basic-Env-with-K8S-CLI
+FROM docker-k8s-cli:1.0.2 AS Basic-Env-with-K8S-CLI
 
 ENV EKS_ZSHRC_FILE=/root/.zshrc.eks
 
