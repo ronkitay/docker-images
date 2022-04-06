@@ -1,0 +1,9 @@
+<Drivers>
+   <Driver name="avatica"
+           url="jdbc:avatica:remote:url=https://${server}:${port}/druid/v2/sql/avatica/"
+           class="org.apache.calcite.avatica.remote.Driver"
+           target="Druid"
+           analyzer="org.sqsh.analyzers.NullAnalyzer"
+           normalizer="org.sqsh.normalizer.NullNormalizer">
+   </Driver>
+</Drivers>
