@@ -1,4 +1,4 @@
-FROM basic-env:2.0.0
+FROM basic-env:3.0.0
 
 # Install PostgreSQL Client
 RUN apk add postgresql

@@ -1,6 +1,6 @@
 # A Docker image for using jsqsh (https://github.com/scgray/jsqsh)
 
-FROM basic-env:2.0.0
+FROM basic-env:3.0.0
 
 RUN apk add openjdk11-jre
 
