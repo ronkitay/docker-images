@@ -5,6 +5,8 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 RUN su -l root; su -; install -o root -g root -m 0755 /kubectl /usr/local/bin/kubectl
 RUN rm /kubectl
 
+RUN apk add kubectx
+
 ENV K8S_ZSHRC_FILE=/root/.zshrc.k8s
 
 ADD .zshrc.k8s ${K8S_ZSHRC_FILE}
