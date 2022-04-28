@@ -1,0 +1,6 @@
+DOCKER_IMAGES_HOME=${BASE_DIR}/docker-images
+
+function godockerimages() {
+  rgb 58 200 180
+  cd ${DOCKER_IMAGES_HOME}
+}
