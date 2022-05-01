@@ -5,3 +5,4 @@
 ./mongo-client/build.sh
 ./postgres-cli/build.sh
 ./jsqsh/build.sh
+./vector/build.sh
