@@ -1,14 +1,17 @@
-ARG ALPINE_VERSION
-FROM alpine:${ALPINE_VERSION}
+ARG DEBIAN_VERSION
+FROM debian:${DEBIAN_VERSION}
 
-# Install cUrl, Git and ZSH
-RUN apk --no-cache add curl git zsh fzf bat fd perl tree
-# Fix grep to show colors
-RUN apk add --no-cache --upgrade grep 
+# Install ZSH and basic tools
+RUN apt -y update && apt -y upgrade
+RUN apt install -y procps curl git zsh fzf bat fd-find perl tree zip unzip vim
+
+# Install Oh-My-Zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-RUN /root/.oh-my-zsh/custom/themes/powerlevel10k/gitstatus/install
 
+# Install and Configure PowerLevel10k
+ARG POWER_LEVEL_10K_INSTALL_DIR=/root/.oh-my-zsh/custom/themes/powerlevel10k
+RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${POWER_LEVEL_10K_INSTALL_DIR}
+RUN ${POWER_LEVEL_10K_INSTALL_DIR}/gitstatus/install
 ADD .p10k.zsh /root/.p10k.zsh
 
 RUN ln -s /root/.state/.zsh_history /root/.zsh_history

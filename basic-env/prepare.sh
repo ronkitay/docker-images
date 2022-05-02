@@ -2,6 +2,9 @@
 
 echo "" > .zshrc.generated
 
+echo "alias fd=fdfind" >> .zshrc.generated
+echo "alias bat=batcat" >> .zshrc.generated
+
 cat ${HOME}/.bindkey.settings >> .zshrc.generated && echo ""  >> .zshrc.generated
 cat ${HOME}/.fzf.settings >> .zshrc.generated && echo ""  >> .zshrc.generated
 cat .oh.my.zsh.settings >> .zshrc.generated && echo ""  >> .zshrc.generated
