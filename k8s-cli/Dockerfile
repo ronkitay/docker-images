@@ -5,19 +5,20 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 RUN su -l root; su -; install -o root -g root -m 0755 /kubectl /usr/local/bin/kubectl
 RUN rm /kubectl
 
-RUN apk add kubectx
-
-ENV K8S_ZSHRC_FILE=/root/.zshrc.k8s
-
-ADD .zshrc.k8s ${K8S_ZSHRC_FILE}
-RUN chmod +x ${K8S_ZSHRC_FILE}
-
-RUN echo "source ${K8S_ZSHRC_FILE}" >> ${ZSHRC_FILE}
+# Install Kubectx
+RUN cp /etc/apt/sources.list /etc/apt/sources.list.${DEBIAN_VERSION}
+RUN echo "deb [trusted=yes] http://ftp.de.debian.org/debian buster main" > /etc/apt/sources.list 
+RUN apt -y update && apt install -y kubectx
+RUN mv /etc/apt/sources.list.${DEBIAN_VERSION} /etc/apt/sources.list
 
 # Install Helm
-RUN apk add bash openssl
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 RUN chmod 700 get_helm.sh
 RUN ./get_helm.sh
 RUN rm get_helm.sh
-RUN apk del bash openssl
+
+# Add K8S zshrc file
+ARG K8S_ZSHRC_FILE=/root/.zshrc.k8s
+ADD .zshrc.k8s ${K8S_ZSHRC_FILE}
+RUN chmod +x ${K8S_ZSHRC_FILE}
+RUN echo "source ${K8S_ZSHRC_FILE}" >> ${ZSHRC_FILE}

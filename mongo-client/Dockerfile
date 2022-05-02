@@ -1,12 +1,13 @@
 FROM basic-env:3.0.0
 
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/main' > /etc/apk/repositories
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/community' >> /etc/apk/repositories
-RUN apk update && apk add mongodb
+# Install Mongo
+RUN cp /etc/apt/sources.list /etc/apt/sources.list.${DEBIAN_VERSION}
+RUN echo "deb [trusted=yes] http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main"  > /etc/apt/sources.list 
+RUN apt -y update && apt install -y mongodb-org
+RUN mv /etc/apt/sources.list.${DEBIAN_VERSION} /etc/apt/sources.list
 
-ENV MONGO_ZSHRC_FILE=/root/.zshrc.mongo
-
+# Add Mongo zshrc file
+ARG MONGO_ZSHRC_FILE=/root/.zshrc.mongo
 ADD .zshrc.mongo ${MONGO_ZSHRC_FILE}
 RUN chmod +x ${MONGO_ZSHRC_FILE}
-
 RUN echo "source ${MONGO_ZSHRC_FILE}" >> ${ZSHRC_FILE}
