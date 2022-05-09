@@ -1,4 +1,5 @@
-FROM basic-env:3.0.0
+ARG RELEASE
+FROM basic-env:${RELEASE}
 
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"

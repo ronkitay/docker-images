@@ -1,4 +1,5 @@
-FROM basic-env:3.0.0
+ARG RELEASE
+FROM basic-env:${RELEASE}
 
 # Install Mongo
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.${DEBIAN_VERSION}

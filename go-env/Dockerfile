@@ -1,3 +1,4 @@
-FROM basic-env:3.0.0
+ARG RELEASE
+FROM basic-env:${RELEASE}
 
 RUN apt install -y golang

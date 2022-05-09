@@ -1,4 +1,5 @@
-FROM basic-env:3.0.0
+ARG RELEASE
+FROM basic-env:${RELEASE}
 
 # Install Vector
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.vector.dev | zsh -s -- -y

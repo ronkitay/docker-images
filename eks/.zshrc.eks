@@ -2,3 +2,5 @@
 if [[ ! -f /root/.kube/config ]]; then
     aws eks --region ${AWS_REGION} update-kubeconfig --name ${EKS_CLUSTER}
 fi
+
+alias s3='aws s3'

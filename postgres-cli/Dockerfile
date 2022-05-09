@@ -1,4 +1,5 @@
-FROM basic-env:3.0.0
+ARG RELEASE
+FROM basic-env:${RELEASE}
 
 # Install PostgreSQL Client
 RUN apt install -y postgresql-client-13

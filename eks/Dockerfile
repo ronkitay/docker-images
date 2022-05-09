@@ -1,4 +1,5 @@
-FROM k8s-cli:3.0.0 AS Basic-Env-with-K8S-CLI
+ARG RELEASE
+FROM k8s-cli:${RELEASE} AS Basic-Env-with-K8S-CLI
 
 # Install AWS CLI v2
 RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip

@@ -3,7 +3,8 @@ FROM debian:${DEBIAN_VERSION}
 
 # Install ZSH and basic tools
 RUN apt -y update && apt -y upgrade
-RUN apt install -y procps curl git zsh fzf bat fd-find perl tree zip unzip vim
+RUN apt install -y procps curl zip unzip vim perl
+RUN apt install -y git zsh fzf bat fd-find tree
 
 # Install Oh-My-Zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

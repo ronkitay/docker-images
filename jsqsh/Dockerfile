@@ -1,6 +1,6 @@
 # A Docker image for using jsqsh (https://github.com/scgray/jsqsh)
-
-FROM basic-env:3.0.0
+ARG RELEASE
+FROM basic-env:${RELEASE}
 
 # Install Java 11 (JRE)
 RUN apt install -y openjdk-11-jre/stable
