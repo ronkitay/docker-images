@@ -1,1 +1,1 @@
-make all -B
+make all -B -s

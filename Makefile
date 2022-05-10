@@ -1,26 +1,46 @@
+REPO_ROOT := $(shell git rev-parse --show-toplevel)
+RELEASE := $(shell cat $(REPO_ROOT)/release)
+VERSIONS := $(shell cat $(REPO_ROOT)/versions)
+BUILD_ARGS := $(foreach version,$(VERSIONS), --build-arg $(version))
+
+define make_image
+	echo   "##########################################################"
+	printf "###########  Making image %-15s  ###############\n" "${1}"
+	echo ""
+	
+	cd ${1} && DOCKER_BUILDKIT=0 docker build --build-arg RELEASE=$(RELEASE) $(BUILD_ARGS) -t $(shell basename $(shell pwd)):$(RELEASE) .
+
+	echo ""
+	printf "##########  Done with image %-15s  #############\n" "${1}"
+	echo "##########################################################"
+	echo ""
+endef
+
 basic-env: 
-	cd basic-env && make
+	$(call make_image, basic-env)
 
 k8s-cli: basic-env
-	cd k8s-cli && make
+	$(call make_image, k8s-cli)
 
 eks: k8s-cli
-	cd eks && make
+	$(call make_image, eks)
 
 go-env: basic-env
-	cd go-env && make
+	$(call make_image, go-env)
 
 jsqsh: basic-env
-	cd jsqsh && make
+	$(call make_image, jsqsh)
 
 mongo-client: basic-env
-	cd mongo-client && make
+	$(call make_image, mongo-client)
 
 postgres-cli: basic-env
-	cd postgres-cli && make
+	$(call make_image, postgres-cli)
 
 vector: basic-env
-	cd vector && make
+	$(call make_image, vector)
 
 all: k8s-cli eks go-env jsqsh mongo-client postgres-cli vector
-	echo "Done"
+	echo "#######################################################"
+	echo "###########  ALL IMAGES BUILT  ########################"
+	echo "#######################################################"
