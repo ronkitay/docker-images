@@ -1,11 +1,4 @@
 ARG DEBIAN_VERSION
-FROM debian:${DEBIAN_VERSION} as dot-files
-
-RUN apt -y update && apt -y upgrade && apt install -y \
-    git
-
-RUN git clone https://github.com/ronkitay/My-Dot-Files.git
-
 FROM debian:${DEBIAN_VERSION} as basic-env
 
 # Install ZSH and basic tools
@@ -41,13 +34,14 @@ ENV ZSHRC_FILE=/root/.zshrc
 ADD .zshrc ${ZSHRC_FILE}
 RUN chmod +x ${ZSHRC_FILE}
 
-COPY --from=dot-files /My-Dot-Files/.config/.bindkey.settings /root/.bindkey.settings
-COPY --from=dot-files /My-Dot-Files/.config/.fzf.settings /root/.fzf.settings
-
-COPY --from=dot-files /My-Dot-Files/.aliases/.common.aliases /root/.common.aliases
-COPY --from=dot-files /My-Dot-Files/.aliases/.git.aliases /root/.git.aliases
-COPY --from=dot-files /My-Dot-Files/.aliases/.iterm.aliases /root/.iterm.aliases
-COPY --from=dot-files /My-Dot-Files/.aliases/.java.aliases /root/.java.aliases
-COPY --from=dot-files /My-Dot-Files/.aliases/.k8s.aliases /root/.k8s.aliases
+RUN git clone https://github.com/ronkitay/My-Dot-Files.git && \
+    cp /My-Dot-Files/.config/.bindkey.settings /root/.bindkey.settings && \
+    cp /My-Dot-Files/.config/.fzf.settings /root/.fzf.settings && \
+    cp /My-Dot-Files/.aliases/.common.aliases /root/.common.aliases && \
+    cp /My-Dot-Files/.aliases/.git.aliases /root/.git.aliases && \
+    cp /My-Dot-Files/.aliases/.iterm.aliases /root/.iterm.aliases && \
+    cp /My-Dot-Files/.aliases/.java.aliases /root/.java.aliases && \
+    cp /My-Dot-Files/.aliases/.k8s.aliases /root/.k8s.aliases && \
+    rm -rf /My-Dot-Files
 
 ENTRYPOINT [ "/bin/zsh" ]
