@@ -8,6 +8,7 @@ RUN apt -y update && apt -y upgrade && apt install -y \
     fd-find \
     fzf \
     git \
+    jq \
     perl \
     procps \
     tree \
