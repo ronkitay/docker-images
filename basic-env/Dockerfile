@@ -19,7 +19,10 @@ RUN apt -y update && apt -y upgrade && apt install -y \
 
 RUN mkdir /root/.state/
 VOLUME [ "/root/.state/" ]
-RUN ln -s /root/.state/.zsh_history /root/.zsh_history
+
+RUN mkdir /root/.history/
+VOLUME [ "/root/.history/" ]
+RUN ln -s /root/.history/.zsh_history /root/.zsh_history
 
 # Install Oh-My-Zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
