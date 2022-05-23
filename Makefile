@@ -22,6 +22,9 @@ basic-env:
 k8s-cli: basic-env
 	$(call make_image, k8s-cli)
 
+python-3.9-env: basic-env
+	$(call make_image, python-3.9-env)
+
 eks: k8s-cli
 	$(call make_image, eks)
 
@@ -40,7 +43,7 @@ postgres-cli: basic-env
 vector: basic-env
 	$(call make_image, vector)
 
-all: k8s-cli eks go-env jsqsh mongo-client postgres-cli vector
+all: k8s-cli eks go-env jsqsh mongo-client postgres-cli python-3.9-env vector
 	echo "#######################################################"
 	echo "###########  ALL IMAGES BUILT  ########################"
 	echo "#######################################################"
