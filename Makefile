@@ -19,12 +19,6 @@ endef
 basic-env: 
 	$(call make_image, basic-env)
 
-k8s-cli: basic-env
-	$(call make_image, k8s-cli)
-
-python-3.9-env: basic-env
-	$(call make_image, python-3.9-env)
-
 eks: k8s-cli
 	$(call make_image, eks)
 
@@ -34,16 +28,25 @@ go-env: basic-env
 jsqsh: basic-env
 	$(call make_image, jsqsh)
 
+k8s-cli: basic-env
+	$(call make_image, k8s-cli)
+
+lua-5.4-env: basic-env
+	$(call make_image, lua-5.4-env)
+
 mongo-client: basic-env
 	$(call make_image, mongo-client)
 
 postgres-cli: basic-env
 	$(call make_image, postgres-cli)
+	
+python-3.9-env: basic-env
+	$(call make_image, python-3.9-env)
 
 vector: basic-env
 	$(call make_image, vector)
 
-all: k8s-cli eks go-env jsqsh mongo-client postgres-cli python-3.9-env vector
+all: eks go-env jsqsh k8s-cli lua-5.4-env mongo-client postgres-cli python-3.9-env vector 
 	echo "#######################################################"
 	echo "###########  ALL IMAGES BUILT  ########################"
 	echo "#######################################################"
