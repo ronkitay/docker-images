@@ -42,6 +42,7 @@ RUN git clone https://github.com/ronkitay/My-Dot-Files.git && \
     cp /My-Dot-Files/.config/.bindkey.settings /root/.bindkey.settings && \
     cp /My-Dot-Files/.config/.fzf.settings /root/.fzf.settings && \
     cp /My-Dot-Files/.aliases/.common.aliases /root/.common.aliases && \
+    cp /My-Dot-Files/.aliases/.cd.aliases /root/.cd.aliases && \
     cp /My-Dot-Files/.aliases/.git.aliases /root/.git.aliases && \
     cp /My-Dot-Files/.aliases/.iterm.aliases /root/.iterm.aliases && \
     cp /My-Dot-Files/.aliases/.java.aliases /root/.java.aliases && \
