@@ -1,6 +1,6 @@
 DOCKER_IMAGES_HOME=${BASE_DIR}/docker-images
 
-complete -W "$(find ${DOCKER_IMAGES_HOME} -depth 1 -type d| grep -v '.git' | awk -F '/' '{print $NF}')" godockerimages
+complete -W "$(cd ${DOCKER_IMAGES_HOME} && fd -t d -H --max-depth 1 -E .git)" godockerimages
 function godockerimages() {
   rgb 58 200 180
   cd ${DOCKER_IMAGES_HOME}
