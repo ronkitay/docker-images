@@ -1,6 +1,8 @@
 DOCKER_IMAGES_HOME=${BASE_DIR}/docker-images
 
+complete -W "$(find ${DOCKER_IMAGES_HOME} -depth 1 -type d| grep -v '.git' | awk -F '/' '{print $NF}')" godockerimages
 function godockerimages() {
   rgb 58 200 180
   cd ${DOCKER_IMAGES_HOME}
+  smart_change_dir_to_child $*
 }
