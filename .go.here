@@ -1,6 +1,6 @@
 DOCKER_IMAGES_HOME=${BASE_DIR}/docker-images
 
-complete -W "$(cd ${DOCKER_IMAGES_HOME} && fd -t d -H --max-depth 1 -E .git)" godockerimages
+complete -W "$(cd ${DOCKER_IMAGES_HOME} && fd --strip-cwd-prefix -t d -H --max-depth 1 -E .git)" godockerimages
 function godockerimages() {
   rgb 58 200 180
   cd ${DOCKER_IMAGES_HOME}
