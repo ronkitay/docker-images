@@ -7,6 +7,9 @@ define make_image
 	echo   "##########################################################"
 	printf "###########  Making image %-15s  ###############\n" "${1}"
 	echo ""
+
+	echo "Running command [docker build --build-arg RELEASE=$(RELEASE) $(BUILD_ARGS) -t ${1}:$(RELEASE) .]"
+	echo ""
 	
 	cd ${1} && docker build --build-arg RELEASE=$(RELEASE) $(BUILD_ARGS) -t ${1}:$(RELEASE) .
 
