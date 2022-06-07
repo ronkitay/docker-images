@@ -4,6 +4,7 @@ alias bat=batcat
 
 source ${HOME}/.bindkey.settings
 source ${HOME}/.fzf.settings
+source ${HOME}/.man.settings
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -27,6 +28,8 @@ export EDITOR='vim'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+source ${HOME}/.bat.aliases
+source ${HOME}/.cd.aliases
 source ${HOME}/.common.aliases
 source ${HOME}/.git.aliases
 source ${HOME}/.iterm.aliases
