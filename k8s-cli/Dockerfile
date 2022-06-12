@@ -13,13 +13,9 @@ RUN apt -y update && apt install -y kubectx
 RUN mv /etc/apt/sources.list.${DEBIAN_VERSION} /etc/apt/sources.list
 
 # Install Helm
-RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-RUN chmod 700 get_helm.sh
-RUN ./get_helm.sh
-RUN rm get_helm.sh
+RUN curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 # Add K8S zshrc file
 ARG K8S_ZSHRC_FILE=/root/.zshrc.k8s
 ADD .zshrc.k8s ${K8S_ZSHRC_FILE}
-RUN chmod +x ${K8S_ZSHRC_FILE}
 RUN echo "source ${K8S_ZSHRC_FILE}" >> ${ZSHRC_FILE}
