@@ -17,6 +17,9 @@ RUN apt -y update && apt -y upgrade && apt install -y \
     zip \
     zsh 
 
+# Install tools not available via apt
+RUN curl -L https://github.com/mikefarah/yq/releases/download/$(curl https://github.com/mikefarah/yq/releases/latest -v 2>&1 |  grep 'location:' |  tr -d '\n\r' | awk -F '/' '{print $NF}' )/yq_linux_386 -o /usr/bin/yq  && chmod +x /usr/bin/yq
+
 RUN mkdir /root/.state/
 VOLUME [ "/root/.state/" ]
 
