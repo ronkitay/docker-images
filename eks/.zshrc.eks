@@ -4,3 +4,11 @@ if [[ ! -f /root/.kube/config ]]; then
 fi
 
 alias s3='aws s3'
+
+function s3cat() {
+   aws s3 cp $1 -
+}
+
+function s3zcat() {
+   aws s3 cp $1 - | zcat
+}
