@@ -4,6 +4,7 @@ FROM debian:${DEBIAN_VERSION} as basic-env
 # Install ZSH and basic tools
 RUN apt -y update && apt -y upgrade && apt install -y \
     bat \
+    bc \
     curl \
     fd-find \
     fzf \
