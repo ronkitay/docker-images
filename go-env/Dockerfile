@@ -1,4 +1,5 @@
 ARG RELEASE
-FROM basic-env:${RELEASE}
+ARG DOCKER_REPO
+FROM ${DOCKER_REPO}/basic-env:${RELEASE}
 
 RUN apt install -y golang

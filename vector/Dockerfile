@@ -1,5 +1,6 @@
 ARG RELEASE
-FROM basic-env:${RELEASE}
+ARG DOCKER_REPO
+FROM ${DOCKER_REPO}/basic-env:${RELEASE}
 
 # Install Vector
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.vector.dev | zsh -s -- -y

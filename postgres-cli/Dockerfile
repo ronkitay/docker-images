@@ -1,5 +1,6 @@
 ARG RELEASE
-FROM basic-env:${RELEASE}
+ARG DOCKER_REPO
+FROM ${DOCKER_REPO}/basic-env:${RELEASE}
 
 # Install PostgreSQL Client
 RUN apt install -y postgresql-client-13

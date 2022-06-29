@@ -1,5 +1,6 @@
 ARG RELEASE
-FROM basic-env:${RELEASE}
+ARG DOCKER_REPO
+FROM ${DOCKER_REPO}/basic-env:${RELEASE}
 
 # Install Mongo
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.${DEBIAN_VERSION}
