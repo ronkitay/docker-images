@@ -38,6 +38,9 @@ k8s-cli: basic-env
 node-14-env: basic-env
 	$(call make_image,node-14-env)
 
+node-16-env: basic-env
+	$(call make_image,node-16-env)
+
 lua-5.4-env: basic-env
 	$(call make_image,lua-5.4-env)
 
@@ -56,7 +59,7 @@ rust-env: basic-env
 vector: basic-env
 	$(call make_image,vector)
 
-all: eks go-env jsqsh k8s-cli lua-5.4-env mongo-client node-14-env postgres-cli python-3.9-env rust-env vector 
+all: eks go-env jsqsh k8s-cli lua-5.4-env mongo-client node-14-env node-16-env postgres-cli python-3.9-env rust-env vector 
 	echo "#######################################################"
 	echo "###########  ALL IMAGES BUILT  ########################"
 	echo "#######################################################"
