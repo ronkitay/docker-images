@@ -2,10 +2,14 @@ echo "Connecting to [${WORKSPACE_NAME}]"
 
 export PGPASSWORD=${PG_PASSWORD}
 
+COMMAND="psql -h ${PG_HOSTNAME} -p ${PG_PORT} --username=${PG_USERNAME} -d ${PG_DB}"
+
 if [ -z "${FILE_NAME}" ]; then
-    psql -h ${PG_HOSTNAME} -p ${PG_PORT} --username=${PG_USERNAME} -d ${PG_DB}
+    echo "Running Command [${COMMAND}]"
+    eval ${COMMAND}
 else
-    psql -h ${PG_HOSTNAME} -p ${PG_PORT} --username=${PG_USERNAME} -d ${PG_DB} -f ${FILE_NAME} | cat
+    echo "Running Command [${COMMAND} -f ${FILE_NAME}]"
+    eval ${COMMAND} -f ${FILE_NAME} | cat
 fi
 
 exit
