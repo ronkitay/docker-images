@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/clisso get ${AWS_PROFILE}
