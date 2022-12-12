@@ -18,3 +18,12 @@ Comes installed with these drivers:
 ```bash
 docker run -t -i --rm jsqsh:2.0.0
 ```
+
+## Usage
+
+### PostgreSQL
+
+```bash
+jsqsh -c pgsql -S <SERVER> -p <PORT> -D <DB> -U <USERNAME>
+jsqsh -c pgsql -S <SERVER> -p <PORT> -D <DB> -U <USERNAME> -P <PASSWORD>
+```
