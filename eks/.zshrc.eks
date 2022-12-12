@@ -1,10 +1,11 @@
-# Get EKS credentials
-if [[ ! -f /root/.kube/config ]]; then
-    aws eks --region ${AWS_REGION} update-kubeconfig --name ${EKS_CLUSTER}
-fi
-
+# Get AWS Credentials
 if [[ "$(/clisso status 2>&1 | grep ${AWS_PROFILE} | wc -l)" -eq "0" ]]; then
    awslogin
+fi
+
+# Get EKS Credentials
+if [[ ! -f /root/.kube/config ]]; then
+    aws eks --region ${AWS_REGION} update-kubeconfig --name ${EKS_CLUSTER}
 fi
 
 alias s3='aws s3'
