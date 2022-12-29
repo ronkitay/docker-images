@@ -46,6 +46,8 @@ RUN git clone https://github.com/ronkitay/My-Dot-Files.git && \
     cp /My-Dot-Files/.config/.bindkey.settings /root/.bindkey.settings && \
     cp /My-Dot-Files/.config/.fzf.settings /root/.fzf.settings && \
     cp /My-Dot-Files/.config/.man.settings /root/.man.settings && \
+    cp /My-Dot-Files/.aliases/.define.colors /root/.define.colors && \
+    cp /My-Dot-Files/.aliases/.aws.aliases /root/.aws.aliases && \
     cp /My-Dot-Files/.aliases/.bat.aliases /root/.bat.aliases && \
     cp /My-Dot-Files/.aliases/.common.aliases /root/.common.aliases && \
     cp /My-Dot-Files/.aliases/.cd.aliases /root/.cd.aliases && \

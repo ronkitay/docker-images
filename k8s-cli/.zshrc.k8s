@@ -1,6 +1,6 @@
-# Setup common kubectl alaises
-alias k='kubectl'
-alias kns='kubens'
+# Setup common kubectl aliases
+
+source ${HOME}/.k8s.aliases
 
 # Add K9S to the path
 export PATH=/k9s:${PATH}

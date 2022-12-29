@@ -59,7 +59,8 @@ rust-env: basic-env
 vector: basic-env
 	$(call make_image,vector)
 
-all: eks go-env jsqsh k8s-cli lua-5.4-env mongo-client node-14-env node-16-env postgres-cli python-3.9-env rust-env vector 
+all: eks go-env k8s-cli lua-5.4-env mongo-client node-14-env node-16-env postgres-cli python-3.9-env rust-env vector 
+#all: eks go-env jsqsh k8s-cli lua-5.4-env mongo-client node-14-env node-16-env postgres-cli python-3.9-env rust-env vector 
 	echo "#######################################################"
 	echo "###########  ALL IMAGES BUILT  ########################"
 	echo "#######################################################"

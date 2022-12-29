@@ -4,7 +4,8 @@ alias bat=batcat
 
 source ${HOME}/.bindkey.settings
 source ${HOME}/.fzf.settings
-source ${HOME}/.man.settings
+
+source ${HOME}/.define.colors
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -34,6 +35,5 @@ source ${HOME}/.common.aliases
 source ${HOME}/.git.aliases
 source ${HOME}/.iterm.aliases
 source ${HOME}/.java.aliases
-source ${HOME}/.k8s.aliases
 
 
