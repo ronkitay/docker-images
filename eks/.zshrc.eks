@@ -5,7 +5,7 @@ fi
 
 # Get EKS Credentials
 if [[ ! -f /root/.kube/config ]]; then
-    aws eks --region ${AWS_REGION} update-kubeconfig --name ${EKS_CLUSTER}
+    eksupdateconfig
 fi
 
 source ${HOME}/.aws.aliases

@@ -17,5 +17,6 @@ RUN rm clisso_linux_amd64.zip
 ENV EKS_ZSHRC_FILE=/root/.zshrc.eks
 ADD .zshrc.eks ${EKS_ZSHRC_FILE}
 ADD awslogin /usr/local/bin/awslogin
+ADD eksupdateconfig /usr/local/bin/eksupdateconfig
 
 RUN echo "source ${EKS_ZSHRC_FILE}" >> ${ZSHRC_FILE}
