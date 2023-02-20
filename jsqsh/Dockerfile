@@ -3,8 +3,8 @@ ARG RELEASE
 ARG DOCKER_REPO
 FROM ${DOCKER_REPO}/basic-env:${RELEASE}
 
-# Install Java 17 (JRE)
-RUN apt install -y openjdk-17-jre/stable (https://www.oracle.com/java/technologies/downloads/)
+# Install Java 17 (JRE) (https://www.oracle.com/java/technologies/downloads/)
+RUN apt install -y openjdk-17-jre/stable 
 
 # Install JSQSH (https://github.com/scgray/jsqsh)
 RUN curl -L https://github.com/scgray/jsqsh/releases/download/jsqsh-2.3/jsqsh-2.3-bin.tar.gz -o /jsqsh-bin.tar.gz
