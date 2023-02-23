@@ -1668,7 +1668,7 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_my_workspace() {
-    p10k segment -b 1 -f 3 -t "${WORKSPACE_NAME:0:10}"
+    p10k segment -b 1 -f 3 -t "${WORKSPACE_NAME:0:30}"
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
