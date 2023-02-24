@@ -24,10 +24,6 @@ RUN curl -L https://github.com/mikefarah/yq/releases/download/$(curl https://git
 RUN mkdir /root/workspace/
 VOLUME [ "/root/workspace/" ]
 
-RUN mkdir /root/.history/
-VOLUME [ "/root/.history/" ]
-RUN ln -s /root/.history/.zsh_history /root/.zsh_history
-
 # Install Oh-My-Zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
