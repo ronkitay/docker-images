@@ -1,14 +1,14 @@
-echo "Connecting to [${WORKSPACE_NAME}]"
+echo "${BRIGHT}${BLUE}Connecting to [${WHITE}${PG_DB}@${PG_HOSTNAME}${BLUE}]${NORMAL}"
 
 export PGPASSWORD=${PG_PASSWORD}
 
 COMMAND="psql -h ${PG_HOSTNAME} -p ${PG_PORT} --username=${PG_USERNAME} -d ${PG_DB}"
 
 if [ -z "${FILE_NAME}" ]; then
-    echo "Running Command [${COMMAND}]"
+    echo "${BRIGHT}${YELLOW}Running Command [${WHITE}${COMMAND}${YELLOW}]${NORMAL}"
     eval ${COMMAND}
 else
-    echo "Running Command [${COMMAND} -f ${FILE_NAME}]"
+    echo "${BRIGHT}${YELLOW}Running Command [${WHITE}${COMMAND} -f ${FILE_NAME}${YELLOW}]${NORMAL}"
     eval ${COMMAND} -f ${FILE_NAME} | cat
 fi
 
