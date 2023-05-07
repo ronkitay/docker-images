@@ -3,6 +3,11 @@ RELEASE := $(shell cat $(REPO_ROOT)/release)
 VERSIONS := $(shell cat $(REPO_ROOT)/versions)
 BUILD_ARGS := $(foreach version,$(VERSIONS), --build-arg $(version))
 DOCKER_REPO := "ronkitay"
+DOCKER_HUB_USERNAME := $(shell cat $(REPO_ROOT)/.dockerhub_username)
+
+define docker_login
+	docker login --username $(DOCKER_HUB_USERNAME) --password-stdin < $(REPO_ROOT)/.dockerhub_password
+endef
 
 define make_image
 	echo   "##########################################################"
@@ -15,12 +20,19 @@ define make_image
 	cd ${1} && docker build $(EXTRA_BUILD_ARGS) --build-arg RELEASE=$(RELEASE) --build-arg DOCKER_REPO=$(DOCKER_REPO) $(BUILD_ARGS) -t $(DOCKER_REPO)/${1}:$(RELEASE) .
 
 	echo ""
+	printf "###########  Pushing image %-15s  ###############\n" "${1}"
+	docker push $(DOCKER_REPO)/${1}:$(RELEASE)
+
+	echo ""
 	printf "##########  Done with image %-15s  #############\n" "${1}"
 	echo "##########################################################"
 	echo ""
 endef
 
-basic-env: 
+docker-login:
+	$(call docker_login)
+
+basic-env: docker-login
 	$(call make_image,basic-env)
 
 eks: k8s-cli
