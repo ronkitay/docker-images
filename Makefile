@@ -17,7 +17,7 @@ define make_image
 	echo "Running command [docker build $(EXTRA_BUILD_ARGS) --build-arg RELEASE=$(RELEASE) $(BUILD_ARGS) -t $(DOCKER_REPO)/${1}:$(RELEASE) .]"
 	echo ""
 	
-	cd ${1} && docker build $(EXTRA_BUILD_ARGS) --build-arg RELEASE=$(RELEASE) --build-arg DOCKER_REPO=$(DOCKER_REPO) $(BUILD_ARGS) -t $(DOCKER_REPO)/${1}:$(RELEASE) .
+	cd ${1} && docker build --platform linux/arm64 $(EXTRA_BUILD_ARGS) --build-arg RELEASE=$(RELEASE) --build-arg DOCKER_REPO=$(DOCKER_REPO) $(BUILD_ARGS) -t $(DOCKER_REPO)/${1}:$(RELEASE) .
 
 	echo ""
 	printf "###########  Pushing image %-15s  ###############\n" "${1}"
@@ -71,7 +71,8 @@ rust-env: basic-env
 vector: basic-env
 	$(call make_image,vector)
 
-all: eks go-env jsqsh k8s-cli lua-5.4-env mongo-client node-14-env node-16-env postgres-cli python-3.9-env rust-env vector 
+#all: eks go-env jsqsh k8s-cli lua-5.4-env mongo-client node-14-env node-16-env postgres-cli python-3.9-env rust-env vector 
+all: eks go-env jsqsh k8s-cli lua-5.4-env node-14-env node-16-env postgres-cli python-3.9-env rust-env vector 
 	echo "#######################################################"
 	echo "###########  ALL IMAGES BUILT  ########################"
 	echo "#######################################################"

@@ -3,7 +3,7 @@ ARG DOCKER_REPO
 FROM ${DOCKER_REPO}/basic-env:${RELEASE}
 
 # Install kubectl
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
 RUN su -l root; su -; install -o root -g root -m 0755 /kubectl /usr/local/bin/kubectl
 RUN rm /kubectl
 
