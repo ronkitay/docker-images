@@ -28,6 +28,6 @@ echo ""
 
 echo "Connecting to [${MONGO_DB}] on [${MONGO_HOSTNAME}]"
 
-mongo -u ${MONGO_USERNAME} -p ${MONGO_PASSWORD} "mongodb+srv://${MONGO_HOSTNAME}/${MONGO_DB}"
+mongosh "mongodb+srv://${MONGO_HOSTNAME}/${MONGO_DB}" -u ${MONGO_USERNAME} -p ${MONGO_PASSWORD} 
 
 exit
