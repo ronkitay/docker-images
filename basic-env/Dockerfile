@@ -9,6 +9,7 @@ RUN apt -y update && apt -y upgrade && apt install -y \
     fd-find \
     fzf \
     git \
+    host \
     jq \
     perl \
     procps \
@@ -26,6 +27,8 @@ VOLUME [ "/root/workspace/" ]
 
 # Install Oh-My-Zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN sh -c "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+
 
 # Install and Configure PowerLevel10k
 ARG POWER_LEVEL_10K_INSTALL_DIR=/root/.oh-my-zsh/custom/themes/powerlevel10k
