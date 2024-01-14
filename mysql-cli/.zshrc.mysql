@@ -1,0 +1,14 @@
+echo "${BRIGHT}${BLUE}Connecting to [${WHITE}${MYSQL_DB}@${MYSQL_HOSTNAME}${BLUE}]${NORMAL}"
+
+COMMAND="mysql -h ${MYSQL_HOSTNAME} -P ${MYSQL_PORT} --database ${MYSQL_DB} --user=${MYSQL_USERNAME} --password=${MYSQL_PASSWORD}"
+
+if [ -z "${FILE_NAME}" ]; then
+    echo "${BRIGHT}${YELLOW}Running Command [${WHITE}${COMMAND}${YELLOW}]${NORMAL}"
+    eval ${COMMAND}
+else
+   # echo "${BRIGHT}${YELLOW}Running Command [${WHITE}${COMMAND} -f ${FILE_NAME}${YELLOW}]${NORMAL}"
+   # eval ${COMMAND} -f ${FILE_NAME} | cat
+   echo "Not supported!"
+fi
+
+exit

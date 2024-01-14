@@ -61,6 +61,9 @@ mongo-client: basic-env
 
 postgres-cli: basic-env
 	$(call make_image,postgres-cli)
+
+mysql-cli: basic-env
+	$(call make_image,mysql-cli)
 	
 python-3.9-env: basic-env
 	$(call make_image,python-3.9-env)
