@@ -38,4 +38,5 @@ source ${HOME}/.git.aliases
 source ${HOME}/.iterm.aliases
 source ${HOME}/.java.aliases
 
-
+export DISABLE_AUTO_TITLE="true"
+echo -ne "\e]1;${WORKSPACE_NAME}\a"
