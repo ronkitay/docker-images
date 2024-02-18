@@ -35,6 +35,9 @@ docker-login:
 basic-env: docker-login
 	$(call make_image,basic-env)
 
+duckdb: basic-env
+	$(call make_image,duckdb)
+
 eks: k8s-cli
 	$(call make_image,eks)
 
