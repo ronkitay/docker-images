@@ -1,8 +1,3 @@
-# Get AWS Credentials
-if [[ "$(/clisso status 2>&1 | grep ${AWS_PROFILE} | wc -l)" -eq "0" ]]; then
-   awslogin
-fi
-
 # Get EKS Credentials
 if [[ ! -f /root/.kube/config ]]; then
     eksupdateconfig
