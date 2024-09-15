@@ -3,7 +3,7 @@ ARG DOCKER_REPO
 FROM ${DOCKER_REPO}/basic-env:${RELEASE}
 
 # Install kubectl
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+RUN curl -LO "https://dl.k8s.io/release/v1.26.15/bin/linux/arm64/kubectl"
 RUN su -l root; su -; install -o root -g root -m 0755 /kubectl /usr/local/bin/kubectl
 RUN rm /kubectl
 
@@ -14,7 +14,7 @@ RUN apt -y update && apt install -y kubectx
 RUN mv /etc/apt/sources.list.${DEBIAN_VERSION} /etc/apt/sources.list
 
 # Install K9S
-RUN mkdir /k9s && cd k9s && curl -LO https://github.com/derailed/k9s/releases/download/v0.32.4/k9s_Linux_arm64.tar.gz && tar zxvf k9s_Linux_arm64.tar.gz
+RUN mkdir /k9s && cd k9s && curl -LO https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_Linux_arm64.tar.gz && tar zxvf k9s_Linux_arm64.tar.gz
 
 # Install Helm
 RUN curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
