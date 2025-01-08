@@ -8,10 +8,7 @@ RUN su -l root; su -; install -o root -g root -m 0755 /kubectl /usr/local/bin/ku
 RUN rm /kubectl
 
 # Install Kubectx
-RUN cp /etc/apt/sources.list /etc/apt/sources.list.${DEBIAN_VERSION}
-RUN echo "deb [trusted=yes] http://ftp.de.debian.org/debian buster main" > /etc/apt/sources.list 
 RUN apt -y update && apt install -y kubectx
-RUN mv /etc/apt/sources.list.${DEBIAN_VERSION} /etc/apt/sources.list
 
 # Install K9S
 RUN mkdir /k9s && cd k9s && curl -LO https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_Linux_arm64.tar.gz && tar zxvf k9s_Linux_arm64.tar.gz

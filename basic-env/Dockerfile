@@ -1,6 +1,8 @@
 ARG DEBIAN_VERSION
 FROM debian:${DEBIAN_VERSION} as basic-env
 
+RUN mkdir /root/.config/
+
 # Install ZSH and basic tools
 RUN apt -y update && apt -y upgrade && apt install -y \
     bat \
@@ -17,7 +19,7 @@ RUN apt -y update && apt -y upgrade && apt install -y \
     unzip \
     vim \
     zip \
-    zsh 
+    zsh
 
 # Install tools not available via apt
 RUN curl -L https://github.com/mikefarah/yq/releases/download/$(curl https://github.com/mikefarah/yq/releases/latest -v 2>&1 |  grep 'location:' |  tr -d '\n\r' | awk -F '/' '{print $NF}')/yq_linux_arm64 -o /usr/bin/yq  && chmod +x /usr/bin/yq
@@ -29,12 +31,9 @@ VOLUME [ "/root/workspace/" ]
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 RUN sh -c "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
-
-# Install and Configure PowerLevel10k
-ARG POWER_LEVEL_10K_INSTALL_DIR=/root/.oh-my-zsh/custom/themes/powerlevel10k
-RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${POWER_LEVEL_10K_INSTALL_DIR}
-RUN ${POWER_LEVEL_10K_INSTALL_DIR}/gitstatus/install
-ADD .p10k.zsh /root/.p10k.zsh
+# Install Starship
+RUN sh -c "curl -sS https://starship.rs/install.sh | sh -s -- -y"
+ADD starship.toml /root/.config/starship.toml
 
 # Configure .zshrc
 ENV ZSHRC_FILE=/root/.zshrc

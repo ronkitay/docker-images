@@ -3,7 +3,7 @@ ARG DOCKER_REPO
 FROM ${DOCKER_REPO}/basic-env:${RELEASE}
 
 # Install PostgreSQL Client
-RUN apt install -y postgresql-client-13
+RUN apt install -y postgresql-client
 
 # Add PG zshrc file
 ARG PG_ZSHRC_FILE=/root/.zshrc.psql

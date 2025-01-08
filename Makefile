@@ -16,7 +16,7 @@ define make_image
 
 	echo "Running command [docker build $(EXTRA_BUILD_ARGS) --build-arg RELEASE=$(RELEASE) $(BUILD_ARGS) -t $(DOCKER_REPO)/${1}:$(RELEASE) .]"
 	echo ""
-	
+
 	cd ${1} && docker build --platform linux/arm64 $(EXTRA_BUILD_ARGS) --build-arg RELEASE=$(RELEASE) --build-arg DOCKER_REPO=$(DOCKER_REPO) $(BUILD_ARGS) -t $(DOCKER_REPO)/${1}:$(RELEASE) .
 
 	echo ""
@@ -67,9 +67,9 @@ postgres-cli: basic-env
 
 mysql-cli: basic-env
 	$(call make_image,mysql-cli)
-	
-python-3.9-env: basic-env
-	$(call make_image,python-3.9-env)
+
+python-3-env: basic-env
+	$(call make_image,python-3-env)
 
 rust-env: basic-env
 	$(call make_image,rust-env)
@@ -77,8 +77,7 @@ rust-env: basic-env
 vector: basic-env
 	$(call make_image,vector)
 
-#all: eks go-env jsqsh k8s-cli lua-5.4-env mongo-client node-14-env node-16-env postgres-cli python-3.9-env rust-env vector 
-all: eks go-env jsqsh k8s-cli lua-5.4-env node-14-env node-16-env postgres-cli python-3.9-env rust-env vector 
+all: duckdb eks go-env jsqsh k8s-cli lua-5.4-env mongo-client mysql-cli node-14-env node-16-env postgres-cli python-3-env rust-env vector
 	echo "#######################################################"
 	echo "###########  ALL IMAGES BUILT  ########################"
 	echo "#######################################################"
