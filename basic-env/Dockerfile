@@ -56,3 +56,5 @@ RUN git clone https://github.com/ronkitay/My-Dot-Files.git && \
     rm -rf /My-Dot-Files
 
 ENTRYPOINT [ "/bin/zsh" ]
+
+WORKDIR /root/
