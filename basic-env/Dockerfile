@@ -15,6 +15,7 @@ RUN apt -y update && apt -y upgrade && apt install -y \
     jq \
     perl \
     procps \
+    telnet \
     tree \
     unzip \
     vim \
