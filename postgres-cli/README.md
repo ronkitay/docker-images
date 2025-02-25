@@ -21,6 +21,7 @@ docker run \
       --env PG_HOSTNAME="<HOSTNAME>" \
       --env PG_PORT="<PORT>" \
       --env PG_DB="<DB_NAME>" \
+      --env PG_SCHEMA="<SCHEMA>" \
       --env PG_USERNAME="<USER_NAME>" \
       -t -i --rm postgres-cli:2.0.0
 ```
@@ -37,6 +38,7 @@ docker run \
       --env PG_HOSTNAME="<HOSTNAME>" \
       --env PG_PORT="<PORT>" \
       --env PG_DB="<DB_NAME>" \
+      --env PG_SCHEMA="<SCHEMA>" \
       --env PG_USERNAME="<USER_NAME>" \
       --env FILE_NAME=/query/query.sql \
       -t -i --rm postgres-cli:2.0.0
