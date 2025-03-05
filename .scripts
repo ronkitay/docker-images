@@ -1,0 +1,3 @@
+DOCKER_IMAGES_HOME=${BASE_DIR}/docker-images
+
+export PATH=${PATH}:${DOCKER_IMAGES_HOME}/scripts

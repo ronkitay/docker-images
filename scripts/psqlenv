@@ -1,0 +1,166 @@
+#!/bin/sh
+
+#DOC# PostgreSQL;psqlenv;Launches a docker container connected to a specific PostgreSQL database
+
+function help {
+    if [[ -z "${SCRIPT}" ]];
+    then
+        SCRIPT=`basename $0`
+    fi
+    printf "\n"
+    printf "Usage:\n"
+    printf "\t${SCRIPT} [-flags]"
+    printf "\n"
+    printf "Mandatory Flags:\n"
+    printf "\t-s, --db-server:\n"
+    printf "\tThe Database Server to connect to.\n"
+    printf "\n"
+    printf "\t-o, --db-port:\n"
+    printf "\tThe Port of the Database to connect to.\n"
+    printf "\n"
+    printf "\t-n, --db-name:\n"
+    printf "\tThe Name of the Database to connect to.\n"
+    printf "\n"
+    printf "\t-u, --username:\n"
+    printf "\tThe Username to connect with.\n"
+    printf "\n"
+    printf "\t-p, --password-file:\n"
+    printf "\tThe Password file to read to connect with.\n"
+    printf "\n"
+    printf "Optional Flags:\n"
+    printf "\t-e, --db-schema:\n"
+    printf "\tThe Name of the Schema to connect to. (Assumes 'public' if not specified)\n"
+    printf "\n"
+    printf "\t-f, --file:\n"
+    printf "\tThe path to the file with commands to execute\n"
+    printf "\n"
+    printf "\t-w, --workspace-name:\n"
+    printf "\tThe name of the Workspace (creates new or uses existing). If not provided a temp workspace will be generated\n"
+    printf "\n"
+    printf "Examples:\n"
+    printf "\t# Connects to a server\n"
+    printf "\t${SCRIPT} -w 'My DB' -s mypg.server.com -n mydb -o 5432 -u myuser -p secretpassword.file\n"
+    printf "\n"
+    exit 1
+}
+
+for arg in "$@"; do
+  shift
+  case "$arg" in
+    '--help')            set -- "$@" '-h'   ;;
+    '--workspace-name')  set -- "$@" '-w'   ;;
+    '--db-server')       set -- "$@" '-s'   ;;
+    '--db-port')         set -- "$@" '-o'   ;;
+    '--db-name')         set -- "$@" '-n'   ;;
+    '--db-schema')       set -- "$@" '-e'   ;;
+    '--username')        set -- "$@" '-u'   ;;
+    '--password-file')   set -- "$@" '-p'   ;;
+    '--file')            set -- "$@" '-f'   ;;
+    *)                   set -- "$@" "$arg" ;;
+  esac
+done
+
+PG_SCHEMA=public
+
+while getopts ":w:s:o:n:u:e:p:f:h:" option; do
+    case "${option}" in
+        h)
+            help
+            ;;
+        w)
+            export WORKSPACE_NAME=${OPTARG}
+            ;;
+        s)
+            export PG_HOSTNAME=${OPTARG}
+            ;;
+        o)
+            export PG_PORT=${OPTARG}
+            ;;
+        n)
+            export PG_DB=${OPTARG}
+            ;;
+        e)
+            export PG_SCHEMA=${OPTARG}
+            ;;
+        u)
+            export PG_USERNAME=${OPTARG}
+            ;;
+        p)
+            export PG_PASSWORD_FILE=${OPTARG}
+            ;;
+        f)
+            export SCRIPT_FILE=${OPTARG}
+            ;;
+        *)
+            printf "${BRIGHT}The flag ${RED}${option}${WHITE} is not supported provided!${NORMAL}\n"
+            help
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [[ -z "${WORKSPACE_NAME}" ]];
+then
+    WORKSPACE_NAME="psqlenv-$(date +%s)-${RANDOM}"
+fi
+
+if [[ -z "${PG_HOSTNAME}" ]];
+then
+    printf "${BRIGHT}${RED}DB Host was not provided!${NORMAL}\n"
+    help
+fi
+
+if [[ -z "${PG_DB}" ]];
+then
+    printf "${BRIGHT}${RED}DB Name was not provided!${NORMAL}\n"
+    help
+fi
+
+if [[ -z "${PG_PORT}" ]];
+then
+    printf "${BRIGHT}${RED}DB Port was not provided!${NORMAL}\n"
+    help
+fi
+
+if [[ -z "${PG_USERNAME}" ]];
+then
+    printf "${BRIGHT}${RED}User Name was not provided!${NORMAL}\n"
+    help
+fi
+
+if [[ -z "${PG_PASSWORD_FILE}" ]];
+then
+    printf "${BRIGHT}${RED}Password file was not provided!${NORMAL}\n"
+    help
+fi
+
+export IMAGE_NAME=postgres-cli;
+export IMAGE="${MY_DOCKER_IMAGES_REPO}/${IMAGE_NAME}:$(cat ${HOME}/.my-docker-images.release)"
+
+if [[ -z "${SCRIPT_FILE}" ]];
+then
+    _docker_run_it \
+        --image "${IMAGE}" \
+        --workspace-name "${WORKSPACE_NAME}" \
+        --extra-params "--env PG_PASSWORD=$(cat ${PG_PASSWORD_FILE}) \
+        --env PG_HOSTNAME=${PG_HOSTNAME} \
+        --env PG_PORT=${PG_PORT} \
+        --env PG_DB=${PG_DB} \
+        --env PG_SCHEMA=${PG_SCHEMA} \
+        --env PG_USERNAME=${PG_USERNAME} "
+else
+    source _docker_workspace_builder -i ${IMAGE}
+    sleep 1
+    mkdir -p ${WORKSPACE_DIR}/query
+    cp ${SCRIPT_FILE} ${WORKSPACE_DIR}/query/query.sql
+    _docker_run_it \
+        --image "${IMAGE}" \
+        --extra-params "--env PG_PASSWORD=$(cat ${PG_PASSWORD_FILE}) \
+        --env PG_HOSTNAME=${PG_HOSTNAME} \
+        --env PG_PORT=${PG_PORT} \
+        --env PG_DB=${PG_DB} \
+        --env PG_SCHEMA=${PG_SCHEMA} \
+        --env PG_USERNAME=${PG_USERNAME} \
+        --env FILE_NAME=/query/query.sql \
+        -v ${WORKSPACE_DIR}/query/:/query/"
+fi
