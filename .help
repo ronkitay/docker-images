@@ -1,4 +1,6 @@
+#DOC# Util;denv;Launches a docker container with a basic Development Environment
 #DOC# Util;eks;Launches a docker container connected to a specific AWS EKS cluster
+#DOC# DuckDB;duck;Launches a docker container with DuckDB mounted to the speficied directory (or the current for as default)
 #DOC# MySQL;mysqlenv;Launches a docker container connected to a specific MySQL database
 #DOC# PostgreSQL;psqlenv;Launches a docker container connected to a specific PostgreSQL database
 #DOC# Python;py3env;Opens a python 3.xx docker container with an optional mount point
