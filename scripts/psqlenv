@@ -1,7 +1,5 @@
 #!/bin/sh
 
-#DOC# PostgreSQL;psqlenv;Launches a docker container connected to a specific PostgreSQL database
-
 function help {
     if [[ -z "${SCRIPT}" ]];
     then
