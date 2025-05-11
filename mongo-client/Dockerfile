@@ -3,9 +3,7 @@ ARG DOCKER_REPO
 FROM ${DOCKER_REPO}/basic-env:${RELEASE}
 
 # Install Mongo
-RUN curl -O https://downloads.mongodb.com/compass/mongodb-mongosh_1.10.6_arm64.deb
-RUN apt install -y ./mongodb-mongosh_1.10.6_arm64.deb
-RUN rm ./mongodb-mongosh_1.10.6_arm64.deb
+RUN mkdir mongosh && cd mongosh && curl https://downloads.mongodb.com/compass/mongosh-2.5.1-linux-arm64.tgz -o mongosh.tgz && tar --strip-components=1 -xvf mongosh.tgz && rm mongosh.tgz
 
 # Add Mongo zshrc file
 ARG MONGO_ZSHRC_FILE=/root/.zshrc.mongo

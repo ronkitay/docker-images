@@ -1,0 +1,129 @@
+#!/bin/sh
+
+function help {
+    if [[ -z "${SCRIPT}" ]];
+    then
+        SCRIPT=`basename $0`
+    fi
+    printf "\n"
+    printf "Usage:\n"
+    printf "\t${SCRIPT} [-flags]"
+    printf "\n"
+    printf "Mandatory Flags:\n"
+    printf "\t-w, --workspace-name:\n"
+    printf "\tThe name of the Workspace (creates new or uses existing).\n"
+    printf "\n"
+    printf "\t-s, --db-server:\n"
+    printf "\tThe Database Server to connect to.\n"
+    printf "\n"
+    printf "\t-n, --db-name:\n"
+    printf "\tThe Name of the Database to connect to.\n"
+    printf "\n"
+    printf "\t-u, --username:\n"
+    printf "\tThe Username to connect with.\n"
+    printf "\n"
+    printf "\t-p, --password:\n"
+    printf "\tThe Password to connect with.\n"
+    printf "\n"
+    printf "Examples:\n"
+    printf "\t# Connects to a server\n"
+    printf "\t${SCRIPT} -w 'My DB' -s mymongo.server.com -n mydb -u myuser -p secretpassword\n"
+    printf "\n"
+    exit 1
+}
+
+for arg in "$@"; do
+  shift
+  case "$arg" in
+    '--help')            set -- "$@" '-h'   ;;
+    '--workspace-name')  set -- "$@" '-w'   ;;
+    '--db-server')       set -- "$@" '-s'   ;;
+    '--db-name')         set -- "$@" '-n'   ;;
+    '--username')        set -- "$@" '-u'   ;;
+    '--password')        set -- "$@" '-p'   ;;
+    *)                   set -- "$@" "$arg" ;;
+  esac
+done
+
+while getopts ":w:s:n:u:p:h:" option; do
+    case "${option}" in
+        h)
+            help
+            ;;
+        w)
+            export WORKSPACE_NAME=${OPTARG}
+            ;;
+        s)
+            export MONGO_HOSTNAME=${OPTARG}
+            if [[ "${MONGO_HOSTNAME}" == "localhost" || "${MONGO_HOSTNAME}" == "127.0.0.1" ]]; then
+                export MONGO_HOSTNAME=host.docker.internal # Using 'host.docker.internal' to connect to localhost since we run in a container"
+            fi
+            ;;
+        n)
+            export MONGO_DB=${OPTARG}
+            ;;
+        u)
+            export MONGO_USERNAME=${OPTARG}
+            ;;
+        p)
+            export MONGO_PASSWORD=${OPTARG}
+            ;;
+        *)
+            printf "${BRIGHT}The flag ${RED}${option}${WHITE} is not supported provided!${NORMAL}\n"
+            help
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [[ -z "${WORKSPACE_NAME}" ]];
+then
+    printf "${BRIGHT}${RED}Workspace Name was not provided!${NORMAL}\n"
+    help
+fi
+
+if [[ -z "${MONGO_HOSTNAME}" ]];
+then
+    printf "${BRIGHT}${RED}DB Host was not provided!${NORMAL}\n"
+    help
+fi
+
+if [[ -z "${MONGO_DB}" ]];
+then
+    printf "${BRIGHT}${RED}DB Name was not provided!${NORMAL}\n"
+    help
+fi
+
+if [[ -z "${MONGO_USERNAME}" ]];
+then
+    printf "${BRIGHT}${RED}User Name was not provided!${NORMAL}\n"
+    help
+fi
+
+if [[ -z "${MONGO_PASSWORD}" ]];
+then
+    printf "${BRIGHT}${RED}Password was not provided!${NORMAL}\n"
+    help
+fi
+
+export IMAGE_NAME=mongo-client;
+export IMAGE="${MY_DOCKER_IMAGES_REPO}/${IMAGE_NAME}:$(cat ${HOME}/.my-docker-images.release)"
+
+echo ""
+echo "${BRIGHT}${BLUE}Tips:${NORMAL}"
+echo "${BRIGHT}${BLUE}=====${NORMAL}"
+echo "${BRIGHT}${BLUE}show databases${WHITE} # See all databases${NORMAL}"
+echo "${BRIGHT}${BLUE}use <db-name>${WHITE} # Switch to a certain DB${NORMAL}"
+echo "${BRIGHT}${BLUE}show collections${WHITE} # See all collections${NORMAL}"
+echo "${BRIGHT}${BLUE}db.<collection>.countDocuments()${WHITE} # Count documents in collection${NORMAL}"
+echo "${BRIGHT}${BLUE}db.<collection>.find()${WHITE} # See all documents in collection${NORMAL}"
+echo "${BRIGHT}${BLUE}db.<collection>.find({"key": "value"})${WHITE} # See all documents in collection matching 'key=value'${NORMAL}"
+echo ""
+
+_docker_run_it \
+    --image "${IMAGE}" \
+    --workspace-name "${WORKSPACE_NAME}" \
+    --extra-params "--env MONGO_PASSWORD=${MONGO_PASSWORD} \
+    --env MONGO_HOSTNAME=${MONGO_HOSTNAME} \
+    --env MONGO_DB=${MONGO_DB} \
+    --env MONGO_USERNAME=${MONGO_USERNAME} "
