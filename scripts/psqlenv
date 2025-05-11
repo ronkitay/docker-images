@@ -70,6 +70,9 @@ while getopts ":w:s:o:n:u:e:p:f:h:" option; do
             ;;
         s)
             export PG_HOSTNAME=${OPTARG}
+            if [[ "${PG_HOSTNAME}" == "localhost" || "${PG_HOSTNAME}" == "127.0.0.1" ]]; then
+                export PG_HOSTNAME=host.docker.internal # Using 'host.docker.internal' to connect to localhost since we run in a container"
+            fi
             ;;
         o)
             export PG_PORT=${OPTARG}

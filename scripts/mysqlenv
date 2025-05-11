@@ -59,6 +59,9 @@ while getopts ":w:s:o:n:u:p:h:" option; do
             ;;
         s)
             export MYSQL_HOSTNAME=${OPTARG}
+            if [[ "${MYSQL_HOSTNAME}" == "localhost" || "${MYSQL_HOSTNAME}" == "127.0.0.1" ]]; then
+                export MYSQL_HOSTNAME=host.docker.internal # Using 'host.docker.internal' to connect to localhost since we run in a container"
+            fi
             ;;
         o)
             export MYSQL_PORT=${OPTARG}
