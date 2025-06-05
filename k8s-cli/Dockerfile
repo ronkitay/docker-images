@@ -10,6 +10,10 @@ RUN rm /root/kubectl
 # Install Kubectx
 RUN apt -y update && apt install -y kubectx
 
+RUN cd "$(mktemp -d)" && OS="$(uname | tr '[:upper:]' '[:lower:]')" && ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" && KREW="krew-${OS}_${ARCH}" && curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" && tar zxvf "${KREW}.tar.gz" && ./"${KREW}" install krew 
+
+RUN PATH="/root/.krew/bin:$PATH" /usr/local/bin/kubectl krew install stern
+
 # Install K9S
 RUN mkdir /k9s && cd /k9s && curl -LO https://github.com/derailed/k9s/releases/download/v0.50.4/k9s_Linux_arm64.tar.gz && tar zxvf k9s_Linux_arm64.tar.gz
 
