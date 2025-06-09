@@ -15,7 +15,7 @@ RUN cd "$(mktemp -d)" && OS="$(uname | tr '[:upper:]' '[:lower:]')" && ARCH="$(u
 RUN PATH="/root/.krew/bin:$PATH" /usr/local/bin/kubectl krew install stern
 
 # Install K9S
-RUN mkdir /k9s && cd /k9s && curl -LO https://github.com/derailed/k9s/releases/download/v0.50.4/k9s_Linux_arm64.tar.gz && tar zxvf k9s_Linux_arm64.tar.gz
+RUN mkdir /k9s && cd /k9s && curl -LO https://github.com/derailed/k9s/releases/download/v0.50.6/k9s_Linux_arm64.tar.gz && tar zxvf k9s_Linux_arm64.tar.gz
 
 # Install Helm
 RUN curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
