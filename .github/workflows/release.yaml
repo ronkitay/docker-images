@@ -8,9 +8,12 @@ on:
 jobs:
   build_macos:
     name: Build on macOS (native)
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -21,8 +24,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build macOS image
-        run: make build-all-images
+      - name: Build MacOS arm64 image
+        run: ARCHITECTURE=arm64 make build-all-images
 
   build_linux_amd64:
     name: Build on Linux amd64
@@ -43,7 +46,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Linux amd64 image
-        run: make build-all-images
+        run: ARCHITECTURE=amd64 make build-all-images
 
   create_manifests:
     name: Create and push manifests

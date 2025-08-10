@@ -3,7 +3,6 @@ RELEASE := $(shell cat $(REPO_ROOT)/release)
 VERSIONS := $(shell cat $(REPO_ROOT)/versions)
 BUILD_ARGS := $(foreach version,$(VERSIONS), --build-arg $(version))
 DOCKER_REPO := "ronkitay"
-ARCHITECTURE := $(shell docker version --format '{{.Server.Arch}}')
 
 define docker_login
 	echo "Skipping for github" 
