@@ -1,9 +1,15 @@
 ARG RELEASE
 ARG DOCKER_REPO
-FROM ${DOCKER_REPO}/k8s-cli:${RELEASE} AS Basic-Env-with-K8S-CLI
+FROM ${DOCKER_REPO}/k8s-cli:${RELEASE}
+ARG TARGETPLATFORM
 
 # Install AWS CLI v2
-RUN curl https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip -o awscliv2.zip
+RUN if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
+        curl https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip -o awscliv2.zip; \
+    else \
+        curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip; \
+    fi
+    
 RUN unzip awscliv2.zip
 RUN cd aws && ./install
 RUN rm -rf aws awscliv2.zip
