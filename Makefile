@@ -3,11 +3,10 @@ RELEASE := $(shell cat $(REPO_ROOT)/release)
 VERSIONS := $(shell cat $(REPO_ROOT)/versions)
 BUILD_ARGS := $(foreach version,$(VERSIONS), --build-arg $(version))
 DOCKER_REPO := "ronkitay"
-DOCKER_HUB_USERNAME := $(shell cat $(REPO_ROOT)/.dockerhub_username)
 ARCHITECTURE := $(shell docker version --format '{{.Server.Arch}}')
 
 define docker_login
-	docker login --username $(DOCKER_HUB_USERNAME) --password-stdin < $(REPO_ROOT)/.dockerhub_password
+	docker login --username $(DOCKERHUB_USERNAME) --password-stdin < $(echo ${DOCKERHUB_TOKEN})
 endef
 
 define make_image
