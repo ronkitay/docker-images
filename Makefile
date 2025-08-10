@@ -96,6 +96,9 @@ all: duckdb eks go-env jsqsh k8s-cli lua-5.4-env mongo-client mysql-cli node-14-
 
 ### START MANIFESTS ###
 
+basic-env-manifest: 
+	$(call make_manifest,basic-env)
+
 mongo-client-manifest: 
 	$(call make_manifest,mongo-client)
 
@@ -104,6 +107,6 @@ duckdb-manifest:
 
 ### END MANIFESTS ###
 
-build-all-images: mongo-client duckdb
+build-all-images: mongo-client duckdb basic-env
 
-create-all-manifests: mongo-client-manifest duckdb-manifest
+create-all-manifests: mongo-client-manifest duckdb-manifest basic-env-manifest
