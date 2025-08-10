@@ -1,5 +1,5 @@
 ARG DEBIAN_VERSION
-FROM debian:${DEBIAN_VERSION} as basic-env
+FROM debian:${DEBIAN_VERSION}
 
 RUN mkdir /root/.config/
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function help {
     if [[ -z "${SCRIPT}" ]];
@@ -55,8 +55,11 @@ while getopts ":w:s:n:u:p:h:" option; do
             ;;
         s)
             export MONGO_HOSTNAME=${OPTARG}
-            if [[ "${MONGO_HOSTNAME}" == "localhost" || "${MONGO_HOSTNAME}" == "127.0.0.1" ]]; then
+            if [[ "${MONGO_HOSTNAME}" = localhost* || "${MONGO_HOSTNAME}" = 127.0.0.1* ]]; then
                 export MONGO_HOSTNAME=host.docker.internal # Using 'host.docker.internal' to connect to localhost since we run in a container"
+                export MONGO_PROTOCOL='mongodb'
+            else
+                export MONGO_PROTOCOL='mongodb+srv'
             fi
             ;;
         n)
@@ -85,12 +88,6 @@ fi
 if [[ -z "${MONGO_HOSTNAME}" ]];
 then
     printf "${BRIGHT}${RED}DB Host was not provided!${NORMAL}\n"
-    help
-fi
-
-if [[ -z "${MONGO_DB}" ]];
-then
-    printf "${BRIGHT}${RED}DB Name was not provided!${NORMAL}\n"
     help
 fi
 
@@ -124,6 +121,7 @@ _docker_run_it \
     --image "${IMAGE}" \
     --workspace-name "${WORKSPACE_NAME}" \
     --extra-params "--env MONGO_PASSWORD=${MONGO_PASSWORD} \
+    --env MONGO_PROTOCOL=${MONGO_PROTOCOL} \
     --env MONGO_HOSTNAME=${MONGO_HOSTNAME} \
     --env MONGO_DB=${MONGO_DB} \
     --env MONGO_USERNAME=${MONGO_USERNAME} "

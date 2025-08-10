@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ####################################################################################################
 # _docker_run_it
@@ -145,6 +145,9 @@ function launch_container {
     OTHER_PARAMS=$(echo ${OTHER_PARAMS} | sed "s|WORKSPACE_DIR|${WORKSPACE_DIR}|g")
 
     docker run \
+        --platform linux/$(docker version --format '{{.Server.Arch}}') \
+        --network host \
+        --add-host=host.docker.internal:host-gateway \
         -e TERM -e COLORTERM -e LC_ALL=C.UTF-8 \
         --network=host \
         ${PROJECT_MOUNT} \
