@@ -69,7 +69,7 @@ node-16-env: basic-env
 lua-5.4-env: basic-env
 	$(call make_image,lua-5.4-env)
 
-mongo-client: docker-login
+mongo-client: 
 	$(call make_image,mongo-client)
 
 postgres-cli: basic-env
