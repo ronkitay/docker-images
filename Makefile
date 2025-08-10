@@ -42,13 +42,23 @@ endef
 
 ### START IMAGES ###
 
-basic-env: 
-	$(call make_image,basic-env)
+## DB Clients
 
 duckdb: 
 	$(call make_image,duckdb)
 
-eks: k8s-cli
+mongo-client: 
+	$(call make_image,mongo-client)
+
+## Other Environments
+
+basic-env: 
+	$(call make_image,basic-env)
+
+k8s-cli: 
+	$(call make_image,k8s-cli)
+
+eks: 
 	$(call make_image,eks)
 
 go-env: basic-env
@@ -57,8 +67,6 @@ go-env: basic-env
 jsqsh: basic-env
 	$(call make_image,jsqsh)
 
-k8s-cli: basic-env
-	$(call make_image,k8s-cli)
 
 node-14-env: basic-env
 	$(call make_image,node-14-env)
@@ -69,8 +77,6 @@ node-16-env: basic-env
 lua-5.4-env: basic-env
 	$(call make_image,lua-5.4-env)
 
-mongo-client: 
-	$(call make_image,mongo-client)
 
 postgres-cli: basic-env
 	$(call make_image,postgres-cli)
@@ -96,17 +102,23 @@ all: duckdb eks go-env jsqsh k8s-cli lua-5.4-env mongo-client mysql-cli node-14-
 
 ### START MANIFESTS ###
 
-basic-env-manifest: 
-	$(call make_manifest,basic-env)
+duckdb-manifest: 
+	$(call make_manifest,duckdb)
 
 mongo-client-manifest: 
 	$(call make_manifest,mongo-client)
 
-duckdb-manifest: 
-	$(call make_manifest,duckdb)
+basic-env-manifest: 
+	$(call make_manifest,basic-env)
+
+k8s-cli-manifest: 
+	$(call make_manifest,k8s-cli)
+
+eks-manifest: 
+	$(call make_manifest,eks)
 
 ### END MANIFESTS ###
 
-build-all-images: mongo-client duckdb basic-env
+build-all-images: duckdb mongo-client basic-env k8s-cli eks
 
-create-all-manifests: mongo-client-manifest duckdb-manifest basic-env-manifest
+create-all-manifests: duckdb-manifest mongo-client-manifest basic-env-manifest k8s-cli-manifest eks-manifest
