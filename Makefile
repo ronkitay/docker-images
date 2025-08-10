@@ -14,7 +14,7 @@ define make_image
 	echo "Running command [docker build --platform linux/$(ARCHITECTURE) $(EXTRA_BUILD_ARGS) --build-arg ARCHITECTURE=$(ARCHITECTURE) --build-arg RELEASE=$(RELEASE) $(BUILD_ARGS) -t $(DOCKER_REPO)/${1}:$(RELEASE)-$(ARCHITECTURE) .]"
 	echo ""
 
-	cd ${1} && docker build --platform linux/$(ARCHITECTURE) $(EXTRA_BUILD_ARGS) --build-arg ARCHITECTURE=$(ARCHITECTURE)--build-arg RELEASE=$(RELEASE) --build-arg DOCKER_REPO=$(DOCKER_REPO) $(BUILD_ARGS) -t $(DOCKER_REPO)/${1}:$(RELEASE)-$(ARCHITECTURE) .
+	cd ${1} && docker build --platform linux/$(ARCHITECTURE) $(EXTRA_BUILD_ARGS) --build-arg ARCHITECTURE=$(ARCHITECTURE) --build-arg RELEASE=$(RELEASE) --build-arg DOCKER_REPO=$(DOCKER_REPO) $(BUILD_ARGS) -t $(DOCKER_REPO)/${1}:$(RELEASE)-$(ARCHITECTURE) .
 
 	echo ""
 	printf "###########  Pushing image %s/%s:%s-%s  ###############\n" "$(DOCKER_REPO)" "${1}" "$(RELEASE)" "$(ARCHITECTURE)"
