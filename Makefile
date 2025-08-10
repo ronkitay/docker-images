@@ -6,7 +6,8 @@ DOCKER_REPO := "ronkitay"
 ARCHITECTURE := $(shell docker version --format '{{.Server.Arch}}')
 
 define docker_login
-	docker login --username $(DOCKERHUB_USERNAME) --password-stdin < $(echo ${DOCKERHUB_TOKEN})
+	echo "Skipping for github" 
+	echo "docker login --username $(DOCKERHUB_USERNAME) --password-stdin < $(echo ${DOCKERHUB_TOKEN})""
 endef
 
 define make_image
