@@ -1,5 +1,0 @@
-export PATH=/duckdb:${PATH}
-
-duckdb
-
-exit

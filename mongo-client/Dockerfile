@@ -1,4 +1,4 @@
-ARG DEBIAN_VERSION
+ARG DEBIAN_VERSION="bookworm"
 FROM debian:${DEBIAN_VERSION} AS starter
 ARG TARGETPLATFORM
 
@@ -13,7 +13,7 @@ RUN if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
         curl https://downloads.mongodb.com/compass/mongosh-2.5.6-linux-x64.tgz -o mongosh.tgz; \
     fi
 
-ARG DEBIAN_VERSION
+ARG DEBIAN_VERSION="bookworm"
 FROM debian:${DEBIAN_VERSION}
 WORKDIR /mongosh
 COPY --from=starter /tmp/mongosh.tgz /mongosh/mongosh.tgz

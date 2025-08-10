@@ -1,4 +1,4 @@
-ARG DEBIAN_VERSION
+ARG DEBIAN_VERSION="bookworm"
 FROM debian:${DEBIAN_VERSION}
 
 RUN mkdir /root/.config/

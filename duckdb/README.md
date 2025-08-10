@@ -14,5 +14,5 @@ A Docker image for duckdb usage.
 docker run \
     --env WORKSPACE_NAME=<Workspace Name> \
     -v <path-of-source-on-local>:<path-of-source-on-container>
-    -t -i --rm duckdb:3.0.0
+    -t -i --rm ronkitay/duckdb:0.1.4
 ```
