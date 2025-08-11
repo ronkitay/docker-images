@@ -50,6 +50,9 @@ duckdb:
 mongo-client: 
 	$(call make_image,mongo-client)
 
+postgres-cli: 
+	$(call make_image,postgres-cli)
+
 ## Other Environments
 
 basic-env: 
@@ -76,10 +79,6 @@ node-16-env: basic-env
 
 lua-5.4-env: basic-env
 	$(call make_image,lua-5.4-env)
-
-
-postgres-cli: basic-env
-	$(call make_image,postgres-cli)
 
 mysql-cli: basic-env
 	$(call make_image,mysql-cli)
@@ -108,6 +107,9 @@ duckdb-manifest:
 mongo-client-manifest: 
 	$(call make_manifest,mongo-client)
 
+postgres-cli-manifest: 
+	$(call make_manifest,postgres-cli)
+
 basic-env-manifest: 
 	$(call make_manifest,basic-env)
 
@@ -119,6 +121,6 @@ eks-manifest:
 
 ### END MANIFESTS ###
 
-build-all-images: duckdb mongo-client basic-env k8s-cli eks
+build-all-images: duckdb mongo-client postgres-cli basic-env k8s-cli eks
 
-create-all-manifests: duckdb-manifest mongo-client-manifest basic-env-manifest k8s-cli-manifest eks-manifest
+create-all-manifests: duckdb-manifest mongo-client-manifest postgres-cli-manifest basic-env-manifest k8s-cli-manifest eks-manifest
