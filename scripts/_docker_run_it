@@ -146,10 +146,9 @@ function launch_container {
 
     docker run \
         --platform linux/$(docker version --format '{{.Server.Arch}}') \
-        --network host \
-        --add-host=host.docker.internal:host-gateway \
         -e TERM -e COLORTERM -e LC_ALL=C.UTF-8 \
         --network=host \
+        --add-host=host.docker.internal:host-gateway \
         ${PROJECT_MOUNT} \
         -v ${WORK_DIR}:/root/workspace/ \
         -v ${HISTORY_DIR}/.zsh_history:/root/.zsh_history \
