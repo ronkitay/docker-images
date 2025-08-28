@@ -9,9 +9,10 @@ RUN echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] htt
 RUN apt update && apt install -y postgresql-client-17
 
 # Add PG zshrc file
-ARG PG_ZSHRC_FILE=/root/launch-psql.sh
-ADD launch-psql.sh ${PG_ZSHRC_FILE}
+ARG LAUNCH_PG_SCRIPT=/root/launch-psql.sh
+ADD launch-psql.sh ${LAUNCH_PG_SCRIPT}
+RUN chmod +x ${LAUNCH_PG_SCRIPT}
+
 ADD .psqlrc /root/.psqlrc
-RUN chmod +x ${PG_ZSHRC_FILE}
 
 ENTRYPOINT [ "/root/launch-psql.sh" ]
