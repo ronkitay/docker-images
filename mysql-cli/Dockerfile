@@ -1,12 +1,12 @@
-ARG RELEASE
-ARG DOCKER_REPO
-FROM ${DOCKER_REPO}/basic-env:${RELEASE}
+ARG DEBIAN_VERSION="bookworm"
+FROM debian:${DEBIAN_VERSION}
 
-# Install PostgreSQL Client
-RUN apt install -y mariadb-client
+# Install MySQL Client - mariadb-client is a drop-in replacement for mysql-client
+RUN apt update && apt install -y mariadb-client 
 
 # Add MYSQL zshrc file
-ARG MYSQL_ZSHRC_FILE=/root/.zshrc.mysql
-ADD .zshrc.mysql ${MYSQL_ZSHRC_FILE}
-RUN chmod +x ${MYSQL_ZSHRC_FILE}
-RUN echo "source ${MYSQL_ZSHRC_FILE}" >> ${ZSHRC_FILE}
+ARG LAUNCH_MYSQL_SCRIPT=/root/launch-mysql.sh
+ADD launch-mysql.sh ${LAUNCH_MYSQL_SCRIPT}
+RUN chmod +x ${LAUNCH_MYSQL_SCRIPT}
+
+ENTRYPOINT [ "/root/launch-mysql.sh" ]
