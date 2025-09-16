@@ -83,7 +83,7 @@ lua-5.4-env: basic-env
 mysql-cli: basic-env
 	$(call make_image,mysql-cli)
 
-python-3-env: basic-env
+python-3-env:
 	$(call make_image,python-3-env)
 
 rust-env: basic-env
@@ -119,8 +119,11 @@ k8s-cli-manifest:
 eks-manifest: 
 	$(call make_manifest,eks)
 
+python-3-env-manifest: 
+	$(call make_manifest,python-3-env)
+
 ### END MANIFESTS ###
 
-build-all-images: duckdb mongo-client postgres-cli basic-env k8s-cli eks
+build-all-images: duckdb mongo-client postgres-cli basic-env k8s-cli eks python-3-env
 
-create-all-manifests: duckdb-manifest mongo-client-manifest postgres-cli-manifest basic-env-manifest k8s-cli-manifest eks-manifest
+create-all-manifests: duckdb-manifest mongo-client-manifest postgres-cli-manifest basic-env-manifest k8s-cli-manifest eks-manifest python-3-env-manifest
