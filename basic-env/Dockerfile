@@ -41,7 +41,6 @@ RUN useradd -m -s /bin/bash linuxbrew
 USER linuxbrew
 WORKDIR /home/linuxbrew
 RUN NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-RUN /home/linuxbrew/.linuxbrew/bin/brew install gcc
 USER root
 
 # Configure .zshrc
