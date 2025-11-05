@@ -6,6 +6,7 @@ RUN mkdir /root/.config/
 # Install ZSH and basic tools
 RUN apt -y update && apt -y upgrade && apt install -y \
     bat \
+    build-essential \
     bc \
     curl \
     fd-find \
@@ -36,25 +37,33 @@ RUN sh -c "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUST
 RUN sh -c "curl -sS https://starship.rs/install.sh | sh -s -- -y"
 ADD starship.toml /root/.config/starship.toml
 
+RUN useradd -m -s /bin/bash linuxbrew
+USER linuxbrew
+WORKDIR /home/linuxbrew
+RUN NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+RUN /home/linuxbrew/.linuxbrew/bin/brew install gcc
+USER root
+
 # Configure .zshrc
 ENV ZSHRC_FILE=/root/.zshrc
 ADD .zshrc ${ZSHRC_FILE}
 RUN chmod +x ${ZSHRC_FILE}
 
-RUN git clone https://github.com/ronkitay/My-Dot-Files.git && \
-    cp /My-Dot-Files/.config/.bindkey.settings /root/.bindkey.settings && \
-    cp /My-Dot-Files/.config/.fzf.settings /root/.fzf.settings && \
-    cp /My-Dot-Files/.config/.man.settings /root/.man.settings && \
-    cp /My-Dot-Files/.aliases/.define.colors /root/.define.colors && \
-    cp /My-Dot-Files/.aliases/.aws.aliases /root/.aws.aliases && \
-    cp /My-Dot-Files/.aliases/.bat.aliases /root/.bat.aliases && \
-    cp /My-Dot-Files/.aliases/.common.aliases /root/.common.aliases && \
-    cp /My-Dot-Files/.aliases/.cd.aliases /root/.cd.aliases && \
-    cp /My-Dot-Files/.aliases/.git.aliases /root/.git.aliases && \
-    cp /My-Dot-Files/.aliases/.iterm.aliases /root/.iterm.aliases && \
-    cp /My-Dot-Files/.aliases/.java.aliases /root/.java.aliases && \
-    cp /My-Dot-Files/.aliases/.k8s.aliases /root/.k8s.aliases && \
-    rm -rf /My-Dot-Files
+RUN mkdir -p /tmp/dot-files/ && cd /tmp/dot-files/ && git clone https://github.com/ronkitay/My-Dot-Files.git 
+RUN true && \
+    cp /tmp/dot-files/My-Dot-Files/.config/.bindkey.settings /root/.bindkey.settings && \
+    cp /tmp/dot-files/My-Dot-Files/.config/.fzf.settings /root/.fzf.settings && \
+    cp /tmp/dot-files/My-Dot-Files/.config/.man.settings /root/.man.settings && \
+    cp /tmp/dot-files/My-Dot-Files/.aliases/.define.colors /root/.define.colors && \
+    cp /tmp/dot-files/My-Dot-Files/.aliases/.aws.aliases /root/.aws.aliases && \
+    cp /tmp/dot-files/My-Dot-Files/.aliases/.bat.aliases /root/.bat.aliases && \
+    cp /tmp/dot-files/My-Dot-Files/.aliases/.common.aliases /root/.common.aliases && \
+    cp /tmp/dot-files/My-Dot-Files/.aliases/.cd.aliases /root/.cd.aliases && \
+    cp /tmp/dot-files/My-Dot-Files/.aliases/.git.aliases /root/.git.aliases && \
+    cp /tmp/dot-files/My-Dot-Files/.aliases/.iterm.aliases /root/.iterm.aliases && \
+    cp /tmp/dot-files/My-Dot-Files/.aliases/.java.aliases /root/.java.aliases && \
+    cp /tmp/dot-files/My-Dot-Files/.aliases/.k8s.aliases /root/.k8s.aliases && \
+    rm -rf /tmp/dot-files
 
 ENTRYPOINT [ "/bin/zsh" ]
 
