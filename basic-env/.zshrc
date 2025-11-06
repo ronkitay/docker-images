@@ -37,5 +37,6 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 export DISABLE_AUTO_TITLE="true"
 echo -ne "\e]1;${WORKSPACE_NAME}\a"
+printf "\e]1337;SetBadgeFormat=%s\a" $(echo -n ${WORKSPACE_NAME} | base64)
 
 eval "$(starship init zsh)"
