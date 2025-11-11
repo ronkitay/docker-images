@@ -119,7 +119,7 @@ function get_running_containers {
 }
 
 function attach_to_running_container {
-    docker exec -it $(docker ps | grep "${1}" | awk '{print $1}') zsh
+    docker exec -it $(docker ps | grep "${1}" | awk '{print $1}') sh -c 'command -v zsh >/dev/null 2>&1 && exec zsh || exec bash'
 }
 
 function launch_container {
