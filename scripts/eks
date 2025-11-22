@@ -36,6 +36,21 @@ function help {
     exit 1
 }
 
+copy_aws_item() {
+    local src_path="$1"
+    local dest_path="$2"
+
+    if [[ -d "${src_path}" ]];
+    then
+        mkdir -p "${dest_path}"
+        cp -RL "${src_path}/." "${dest_path}/"
+    elif [[ -f "${src_path}" || -L "${src_path}" ]];
+    then
+        mkdir -p "$(dirname "${dest_path}")"
+        cp -L "${src_path}" "${dest_path}"
+    fi
+}
+
 for arg in "$@"; do
   shift
   case "$arg" in
@@ -103,12 +118,38 @@ then
     help
 fi
 
+AWS_SOURCE_DIR="${HOME}/.aws"
+if [[ ! -d "${AWS_SOURCE_DIR}" ]];
+then
+    printf "${BRIGHT}${RED}AWS config directory was not found at ${AWS_SOURCE_DIR}!${NORMAL}\n"
+    exit 1
+fi
+
+export IMAGE="${MY_DOCKER_IMAGES_REPO}/eks:$(cat ${HOME}/.my-docker-images.release)"
+WORKSPACE_HUMAN_NAME="${WORKSPACE_NAME}"
+
+WORKSPACE_BUILDER_ARGS=(-i "${IMAGE}" -w "${WORKSPACE_HUMAN_NAME}")
+if [[ -n "${PROJECT_DIR}" ]];
+then
+    WORKSPACE_BUILDER_ARGS+=(-m "${PROJECT_DIR}")
+fi
+
+source "_docker_workspace_builder" "${WORKSPACE_BUILDER_ARGS[@]}"
+
+AWS_WORKSPACE_CONFIG_DIR="${WORKSPACE_DIR}/.aws"
+rm -rf "${AWS_WORKSPACE_CONFIG_DIR}"
+mkdir -p "${AWS_WORKSPACE_CONFIG_DIR}"
+copy_aws_item "${AWS_SOURCE_DIR}/config" "${AWS_WORKSPACE_CONFIG_DIR}/config"
+copy_aws_item "${AWS_SOURCE_DIR}/cli" "${AWS_WORKSPACE_CONFIG_DIR}/cli"
+copy_aws_item "${AWS_SOURCE_DIR}/sso" "${AWS_WORKSPACE_CONFIG_DIR}/sso"
+mkdir -p "${WORKSPACE_DIR}/.kube"
+
 _docker_run_it \
-    --image ${MY_DOCKER_IMAGES_REPO}/eks:$(cat ${HOME}/.my-docker-images.release) \
-    --workspace-name "${WORKSPACE_NAME}" \
+    --image ${IMAGE} \
+    --workspace-name "${WORKSPACE_HUMAN_NAME}" \
     ${MOUNT_POINT} \
-    --extra-params " -v ${HOME}/.aws/:/root/.aws \
-    -v WORKSPACE_DIR/.kube:/root/.kube \
+    --extra-params " -v ${AWS_WORKSPACE_CONFIG_DIR}:/root/.aws \
+    -v ${WORKSPACE_DIR}/.kube:/root/.kube \
     --env AWS_PROFILE=${AWS_PROFILE} \
     --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
     --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
