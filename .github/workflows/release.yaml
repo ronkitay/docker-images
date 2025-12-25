@@ -9,7 +9,7 @@ jobs:
   # ---------------------------
   # duckdb
   # ---------------------------
-duckdb_amd64_build:
+  duckdb_amd64_build:
     name: duckdb build (amd64)
     runs-on: ubuntu-latest
     steps:
@@ -21,7 +21,7 @@ duckdb_amd64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-duckdb_arm64_build:
+  duckdb_arm64_build:
     name: duckdb build (arm64)
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +33,7 @@ duckdb_arm64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-duckdb_manifest:
+  duckdb_manifest:
     name: duckdb manifest (multi-arch)
     runs-on: ubuntu-latest
     needs: [duckdb_amd64_build, duckdb_arm64_build]
@@ -48,7 +48,7 @@ duckdb_manifest:
   # ---------------------------
   # mongo-client
   # ---------------------------
-mongo_client_amd64_build:
+  mongo_client_amd64_build:
     name: mongo-client build (amd64)
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +60,7 @@ mongo_client_amd64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-mongo_client_arm64_build:
+  mongo_client_arm64_build:
     name: mongo-client build (arm64)
     runs-on: ubuntu-latest
     steps:
@@ -72,7 +72,7 @@ mongo_client_arm64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-mongo_client_manifest:
+  mongo_client_manifest:
     name: mongo-client manifest (multi-arch)
     runs-on: ubuntu-latest
     needs: [mongo_client_amd64_build, mongo_client_arm64_build]
@@ -87,7 +87,7 @@ mongo_client_manifest:
   # ---------------------------
   # postgres-cli
   # ---------------------------
-postgres_cli_amd64_build:
+  postgres_cli_amd64_build:
     name: postgres-cli build (amd64)
     runs-on: ubuntu-latest
     steps:
@@ -99,7 +99,7 @@ postgres_cli_amd64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-postgres_cli_arm64_build:
+  postgres_cli_arm64_build:
     name: postgres-cli build (arm64)
     runs-on: ubuntu-latest
     steps:
@@ -111,7 +111,7 @@ postgres_cli_arm64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-postgres_cli_manifest:
+  postgres_cli_manifest:
     name: postgres-cli manifest (multi-arch)
     runs-on: ubuntu-latest
     needs: [postgres_cli_amd64_build, postgres_cli_arm64_build]
@@ -126,7 +126,7 @@ postgres_cli_manifest:
   # ---------------------------
   # basic-env
   # ---------------------------
-basic_env_amd64_build:
+  basic_env_amd64_build:
     name: basic-env build (amd64)
     runs-on: ubuntu-latest
     steps:
@@ -138,7 +138,7 @@ basic_env_amd64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-basic_env_arm64_build:
+  basic_env_arm64_build:
     name: basic-env build (arm64)
     runs-on: ubuntu-latest
     steps:
@@ -150,7 +150,7 @@ basic_env_arm64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-basic_env_manifest:
+  basic_env_manifest:
     name: basic-env manifest (multi-arch)
     runs-on: ubuntu-latest
     needs: [basic_env_amd64_build, basic_env_arm64_build]
@@ -165,7 +165,7 @@ basic_env_manifest:
   # ---------------------------
   # k8s-cli (depends per-arch on basic-env)
   # ---------------------------
-k8s_cli_amd64_build:
+  k8s_cli_amd64_build:
     name: k8s-cli build (amd64)
     runs-on: ubuntu-latest
     needs: [basic_env_amd64_build]
@@ -178,7 +178,7 @@ k8s_cli_amd64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-k8s_cli_arm64_build:
+  k8s_cli_arm64_build:
     name: k8s-cli build (arm64)
     runs-on: ubuntu-latest
     needs: [basic_env_arm64_build]
@@ -191,7 +191,7 @@ k8s_cli_arm64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-k8s_cli_manifest:
+  k8s_cli_manifest:
     name: k8s-cli manifest (multi-arch)
     runs-on: ubuntu-latest
     needs: [k8s_cli_amd64_build, k8s_cli_arm64_build]
@@ -206,7 +206,7 @@ k8s_cli_manifest:
   # ---------------------------
   # python-3-env (depends per-arch on basic-env)
   # ---------------------------
-python3_env_amd64_build:
+  python3_env_amd64_build:
     name: python-3-env build (amd64)
     runs-on: ubuntu-latest
     needs: [basic_env_amd64_build]
@@ -219,7 +219,7 @@ python3_env_amd64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-python3_env_arm64_build:
+  python3_env_arm64_build:
     name: python-3-env build (arm64)
     runs-on: ubuntu-latest
     needs: [basic_env_arm64_build]
@@ -232,7 +232,7 @@ python3_env_arm64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-python3_env_manifest:
+  python3_env_manifest:
     name: python-3-env manifest (multi-arch)
     runs-on: ubuntu-latest
     needs: [python3_env_amd64_build, python3_env_arm64_build]
@@ -247,7 +247,7 @@ python3_env_manifest:
   # ---------------------------
   # eks (depends per-arch on k8s-cli)
   # ---------------------------
-eks_amd64_build:
+  eks_amd64_build:
     name: eks build (amd64)
     runs-on: ubuntu-latest
     needs: [k8s_cli_amd64_build]
@@ -260,7 +260,7 @@ eks_amd64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-eks_arm64_build:
+  eks_arm64_build:
     name: eks build (arm64)
     runs-on: ubuntu-latest
     needs: [k8s_cli_arm64_build]
@@ -273,7 +273,7 @@ eks_arm64_build:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-eks_manifest:
+  eks_manifest:
     name: eks manifest (multi-arch)
     runs-on: ubuntu-latest
     needs: [eks_amd64_build, eks_arm64_build]
