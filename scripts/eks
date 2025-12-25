@@ -19,7 +19,7 @@ function help {
     printf "\t-p, --aws-profile:\n"
     printf "\tThe AWS Profile being used.\n"
     printf "\n"
-    printf "\t-r, --cluster-name:\n"
+    printf "\t-c, --cluster-name:\n"
     printf "\tThe Name of the EKS cluster to connect to.\n"
     printf "\n"
     printf "Optional Flags:\n"
