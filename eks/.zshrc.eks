@@ -4,3 +4,5 @@ if [[ ! -f /root/.kube/config ]]; then
 fi
 
 source ${HOME}/.aws.aliases
+
+[[ -f "$HOME/proj/.zshrc.eks" ]] && source "$HOME/proj/.zshrc.eks"
