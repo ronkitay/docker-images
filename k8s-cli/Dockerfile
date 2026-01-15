@@ -22,9 +22,9 @@ RUN PATH="/root/.krew/bin:$PATH" /usr/local/bin/kubectl krew install stern
 
 # Install K9S
 RUN if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
-        curl -L "https://github.com/derailed/k9s/releases/download/v0.50.16/k9s_Linux_arm64.tar.gz" -o /tmp/k9s.tar.gz; \
+        curl -L "https://github.com/derailed/k9s/releases/download/v0.50.18/k9s_Linux_arm64.tar.gz" -o /tmp/k9s.tar.gz; \
     else \
-        curl -L "https://github.com/derailed/k9s/releases/download/v0.50.9/k9s_Linux_amd64.tar.gz" -o /tmp/k9s.tar.gz; \
+        curl -L "https://github.com/derailed/k9s/releases/download/v0.50.18/k9s_Linux_amd64.tar.gz" -o /tmp/k9s.tar.gz; \
     fi
 
 RUN mkdir /k9s && cd /k9s && tar zxvf /tmp/k9s.tar.gz

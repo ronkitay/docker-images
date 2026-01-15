@@ -16,6 +16,7 @@ RUN apt -y update && apt -y upgrade && apt install -y \
     jq \
     perl \
     procps \
+    ripgrep \
     telnet \
     tree \
     unzip \
