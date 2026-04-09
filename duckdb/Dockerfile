@@ -7,10 +7,10 @@ WORKDIR /tmp
 
 RUN if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
         echo "Running on ARM64 platform"; \
-        wget https://github.com/duckdb/duckdb/releases/download/v1.3.2/duckdb_cli-linux-arm64.zip -O duckdb.zip; \
+        wget https://github.com/duckdb/duckdb/releases/download/v1.5.1/duckdb_cli-linux-arm64.zip -O duckdb.zip; \
     else \
         echo "Running on x86_64 platform"; \
-        wget https://github.com/duckdb/duckdb/releases/download/v1.3.2/duckdb_cli-linux-amd64.zip -O duckdb.zip; \
+        wget https://github.com/duckdb/duckdb/releases/download/v1.5.1/duckdb_cli-linux-amd64.zip -O duckdb.zip; \
     fi
 
 RUN unzip duckdb.zip && rm duckdb.zip
