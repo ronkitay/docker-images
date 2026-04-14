@@ -1,6 +1,8 @@
 ARG DEBIAN_VERSION="bookworm"
 FROM debian:${DEBIAN_VERSION}
 
+ARG TARGETPLATFORM
+
 RUN mkdir /root/.config/
 
 # Install ZSH and basic tools
@@ -18,6 +20,7 @@ RUN apt -y update && apt -y upgrade && apt install -y \
     procps \
     ripgrep \
     telnet \
+    tmux \
     tree \
     unzip \
     vim \
@@ -25,7 +28,22 @@ RUN apt -y update && apt -y upgrade && apt install -y \
     zsh
 
 # Install tools not available via apt
-RUN curl -L https://github.com/mikefarah/yq/releases/download/$(curl https://github.com/mikefarah/yq/releases/latest -v 2>&1 |  grep 'location:' |  tr -d '\n\r' | awk -F '/' '{print $NF}')/yq_linux_arm64 -o /usr/bin/yq  && chmod +x /usr/bin/yq
+RUN if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
+        curl -L https://github.com/mikefarah/yq/releases/download/$(curl https://github.com/mikefarah/yq/releases/latest -v 2>&1 |  grep 'location:' |  tr -d '\n\r' | awk -F '/' '{print $NF}')/yq_linux_arm64 -o /usr/bin/yq; \
+    else \
+        curl -L https://github.com/mikefarah/yq/releases/download/$(curl https://github.com/mikefarah/yq/releases/latest -v 2>&1 |  grep 'location:' |  tr -d '\n\r' | awk -F '/' '{print $NF}')/yq_linux_amd64 -o /usr/bin/yq; \
+    fi && \
+    chmod +x /usr/bin/yq
+
+# Install Zellij
+RUN if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
+        ARCH="aarch64"; \
+    else \
+        ARCH="x86_64"; \
+    fi && \
+    ZELLIJ_VERSION=$(curl -s https://api.github.com/repos/zellij-org/zellij/releases/latest | grep 'tag_name' | head -1 | cut -d'"' -f4) && \
+    curl -L https://github.com/zellij-org/zellij/releases/download/${ZELLIJ_VERSION}/zellij-${ARCH}-unknown-linux-musl.tar.gz | tar xz -C /usr/local/bin && \
+    chmod +x /usr/local/bin/zellij
 
 RUN mkdir /root/workspace/
 VOLUME [ "/root/workspace/" ]
