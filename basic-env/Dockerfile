@@ -83,6 +83,8 @@ RUN true && \
     cp /tmp/dot-files/My-Dot-Files/.aliases/.k8s.aliases /root/.k8s.aliases && \
     rm -rf /tmp/dot-files
 
+ADD .tmux.conf .tmux.conf
+
 ENTRYPOINT [ "/bin/zsh" ]
 
 WORKDIR /root/
