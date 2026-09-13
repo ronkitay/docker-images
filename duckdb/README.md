@@ -1,4 +1,4 @@
-# go-env
+# duckdb
 
 A Docker image for duckdb usage.
 

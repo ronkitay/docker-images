@@ -64,21 +64,8 @@ k8s-cli:
 eks: 
 	$(call make_image,eks)
 
-go-env: basic-env
-	$(call make_image,go-env)
-
 jsqsh: basic-env
 	$(call make_image,jsqsh)
-
-
-node-14-env: basic-env
-	$(call make_image,node-14-env)
-
-node-16-env: basic-env
-	$(call make_image,node-16-env)
-
-lua-5.4-env: basic-env
-	$(call make_image,lua-5.4-env)
 
 mysql-cli: basic-env
 	$(call make_image,mysql-cli)
@@ -86,13 +73,10 @@ mysql-cli: basic-env
 python-3-env:
 	$(call make_image,python-3-env)
 
-rust-env: basic-env
-	$(call make_image,rust-env)
-
 vector: basic-env
 	$(call make_image,vector)
 
-all: duckdb eks go-env jsqsh k8s-cli lua-5.4-env mongo-client mysql-cli node-14-env node-16-env postgres-cli python-3-env rust-env vector
+all: duckdb eks jsqsh k8s-cli mongo-client mysql-cli postgres-cli python-3-env vector
 	echo "#######################################################"
 	echo "###########  ALL IMAGES BUILT  ########################"
 	echo "#######################################################"
