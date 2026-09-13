@@ -6,7 +6,7 @@ RUN curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmo
 RUN echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] http://apt.postgresql.org/pub/repos/apt/ $(cat /etc/os-release | grep VERSION_CODENAME | cut -d'=' -f2)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
 
 # Install PostgreSQL Client
-RUN apt update && apt install -y postgresql-client-17
+RUN apt update && apt install -y postgresql-client-18
 
 # Add PG zshrc file
 ARG LAUNCH_PG_SCRIPT=/root/launch-psql.sh

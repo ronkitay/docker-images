@@ -53,7 +53,7 @@ Removed images: `go-env`, `lua-5.4-env`, `node-14-env`, `node-16-env`, `rust-env
   - `ronkitay/<image>:<release>` (multi-arch manifest referencing both)
 - Bumping the release = editing the `release` file and pushing to main; CI rebuilds and republishes everything it knows about.
 - Consumers pin the release locally via `~/.my-docker-images.release`, which the wrapper scripts in `scripts/` read.
-- The root **`versions`** file defines base-image build args passed to every build (currently `DEBIAN_VERSION=trixie`, overriding the `bookworm` defaults inside Dockerfiles, plus an unused `ALPINE_VERSION`).
+- The root **`versions`** file defines base-image build args passed to every build (currently `DEBIAN_VERSION=trixie`, overriding the `bookworm` defaults inside Dockerfiles).
 
 ## Build System
 

@@ -6,9 +6,9 @@ ARG TARGETPLATFORM
 
 # Install kubectl
 RUN if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
-        curl -L "https://dl.k8s.io/release/v1.26.15/bin/linux/arm64/kubectl" -o /tmp/kubectl; \
+        curl -L "https://dl.k8s.io/release/v1.37.0/bin/linux/arm64/kubectl" -o /tmp/kubectl; \
     else \
-        curl -L "https://dl.k8s.io/release/v1.26.15/bin/linux/amd64/kubectl" -o /tmp/kubectl; \
+        curl -L "https://dl.k8s.io/release/v1.37.0/bin/linux/amd64/kubectl" -o /tmp/kubectl; \
     fi
 RUN su -l root; su -; install -o root -g root -m 0755 /tmp/kubectl /usr/local/bin/kubectl
 RUN rm /tmp/kubectl
@@ -22,9 +22,9 @@ RUN PATH="/root/.krew/bin:$PATH" /usr/local/bin/kubectl krew install stern
 
 # Install K9S
 RUN if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
-        curl -L "https://github.com/derailed/k9s/releases/download/v0.50.18/k9s_Linux_arm64.tar.gz" -o /tmp/k9s.tar.gz; \
+        curl -L "https://github.com/derailed/k9s/releases/download/v0.51.0/k9s_Linux_arm64.tar.gz" -o /tmp/k9s.tar.gz; \
     else \
-        curl -L "https://github.com/derailed/k9s/releases/download/v0.50.18/k9s_Linux_amd64.tar.gz" -o /tmp/k9s.tar.gz; \
+        curl -L "https://github.com/derailed/k9s/releases/download/v0.51.0/k9s_Linux_amd64.tar.gz" -o /tmp/k9s.tar.gz; \
     fi
 
 RUN mkdir /k9s && cd /k9s && tar zxvf /tmp/k9s.tar.gz
