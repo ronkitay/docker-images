@@ -7,10 +7,10 @@ RUN apt-get update && apt-get install -y curl;
 WORKDIR /tmp
 RUN if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
         echo "Running on ARM64 platform"; \
-        curl https://downloads.mongodb.com/compass/mongosh-2.5.6-linux-arm64.tgz -o mongosh.tgz; \
+        curl https://downloads.mongodb.com/compass/mongosh-2.10.0-linux-arm64.tgz -o mongosh.tgz; \
     else \
         echo "Running on x86_64 platform"; \
-        curl https://downloads.mongodb.com/compass/mongosh-2.5.6-linux-x64.tgz -o mongosh.tgz; \
+        curl https://downloads.mongodb.com/compass/mongosh-2.10.0-linux-x64.tgz -o mongosh.tgz; \
     fi
 
 ARG DEBIAN_VERSION="bookworm"

@@ -14,5 +14,5 @@ RUN echo 'PATH=${PATH}:/jsqsh/bin' >> ${ZSHRC_FILE}
 # Configure Drivers
 RUN mkdir /root/.jsqsh && touch /root/.jsqsh/.welcome
 COPY drivers.xml /root/.jsqsh/drivers.xml
-RUN curl https://repo1.maven.org/maven2/org/apache/calcite/avatica/avatica/1.22.0/avatica-1.22.0.jar -o /jsqsh/share/jsqsh/avatica.jar
-RUN curl https://repo1.maven.org/maven2/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar -o /jsqsh/share/jsqsh/postgresql.jar
+RUN curl https://repo1.maven.org/maven2/org/apache/calcite/avatica/avatica/1.28.0/avatica-1.28.0.jar -o /jsqsh/share/jsqsh/avatica.jar
+RUN curl https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.13/postgresql-42.7.13.jar -o /jsqsh/share/jsqsh/postgresql.jar
